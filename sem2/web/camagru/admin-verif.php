@@ -14,8 +14,7 @@
 	if (isset($_POST['usr-log-in']))
 	{
 		$user = getUser($_POST['usr-name']);
-		print_r($user);
-		/*if ($user != null)
+		if (isset($user))
 		{
 			//$pass = hash("sha256", $_POST['usr-passwd']);
 			//if (strcmp($pass, $user['passwd']) == 0)
@@ -36,23 +35,23 @@
 			}
 			else
 			{
-				$response = "Incorrect username/pasword!"
+				$response = "Incorrect username/pasword!";
 				$button = "Go back";
 				$link = "admin.html";
 			}
 		}
 		else
 		{
-			$response = "Incorrect username/pasword!"
+			$response = "Incorrect username/pasword!";
 			$button = "Go back";
 			$link = "admin.html";
-		}*/
+		}
 	}
-/*
+
 	if (isset($_POST['usr-register']))
 	{
 		$user = getUser($_POST['usr-name']);
-		if (!$user)
+		if (!isset($user))
 		{
 			if (newUser($_POST))
 			{
@@ -90,8 +89,6 @@
 			$link = "index.php";
 		}
 	}
-*/
-	print_r($_POST);
 ?>
 <!DOCTYPE html>
 <html>

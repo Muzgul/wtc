@@ -10,12 +10,12 @@
 		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		$sql = "CREATE DATABASE `dbMkMeMgc`";
 		$conn->exec($sql);
-		echo "[ DB CREATED ]<br/>";
+		echo "[ DB CREATED ]<br/>";	
+		$conn = null;
 	}
 	catch (PDOException $exception) {
 		echo "[ DATABASE FAIL: " . $exception->getMessage() . " ]<br/>";
 	}
-	$conn = null;
 
 	try {
 		$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -36,11 +36,11 @@
 				`likes` INT(8) DEFAULT '0')";
 		$conn->exec($sql);
 		echo "[ TABLE IMG CREATED ]<br/>";
+		$conn = null;
 	}
 	catch (PDOException $exception) {
 		echo "[ TABLE FAIL: " . $exception->getMessage() . " ]<br/>";
 	}
-	$conn = null;
 
 	if (!file_exists("../comments/"))
 		mkdir("../comments/");

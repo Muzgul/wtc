@@ -1,11 +1,13 @@
 <?php
-	$servername = "localhost";
-	$username = "root";
-	$password = "cullygme";
-	$dbname = "dbmkmemgc";
-
+	error_reporting(E_ALL);
+	ini_set('display_errors', 1);
+	
 	function getUser($usr_name)
 	{
+		$servername = "localhost";
+		$username = "root";
+		$password = "cullygme";
+		$dbname = "dbMkMeMgc";
 		try {
 			$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
 			// Error mode: exception
@@ -14,6 +16,7 @@
 					WHERE `login` LIKE '" . $usr_name . "'";
 			foreach ($conn->query($sql)	as $row)
 			{
+				$conn = null;
 				return ($row);
 			}
 		}
@@ -23,9 +26,13 @@
 		}
 		return (null);
 	}
-/*
+
 	function newUser($post)
 	{
+		$servername = "localhost";
+		$username = "root";
+		$password = "cullygme";
+		$dbname = "dbMkMeMgc";
 		try {
 			$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
 			// Error mode: exception
@@ -35,15 +42,21 @@
 					VALUES ('" . $post['usr-name'] . "', '" . $post['usr-email'] . "', '"
 					. $passwd . "')";
 			$conn->exec($sql);
+			return (getUser($post['usr-name']));
 		}
 		catch ($PDOException $exception)
 		{
 			echo "[ newUser Error : " . $exception->getMessage() . "]<br/>";
+			return (null);
 		}
 	}
-
+/*
 	function verifUser($usr_name)
 	{
+		$servername = "localhost";
+		$username = "root";
+		$password = "cullygme";
+		$dbname = "dbMkMeMgc";
 		try {
 			$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
 			// Error mode: exception
