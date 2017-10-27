@@ -44,7 +44,7 @@
 			$conn->exec($sql);
 			return (getUser($post['usr-name']));
 		}
-		catch ($PDOException $exception)
+		catch (PDOException $exception)
 		{
 			echo "[ newUser Error : " . $exception->getMessage() . "]<br/>";
 			return (null);

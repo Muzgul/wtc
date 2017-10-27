@@ -21,7 +21,7 @@
 		$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
 		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		$sql = "CREATE TABLE `tbladmin` (
-				`id` INT(8) PRIMARY KEY,
+				`id` INT(8) PRIMARY KEY AUTO_INCREMENT,
 				`login` VARCHAR(32) NOT NULL, 
 				`email` VARCHAR(32) NOT NULL,
 				`passwd` VARCHAR(256) NOT NULL,
@@ -29,7 +29,7 @@
 		$conn->exec($sql);
 		echo "[ TABLE ADMIN CREATED ]" . PHP_EOL;
 		$sql = "CREATE TABLE `tblimg` (
-				`id` INT(8) PRIMARY KEY,
+				`id` INT(8) PRIMARY KEY AUTO_INCREMENT,
 				`name` VARCHAR(32) NOT NULL, 
 				`creator` VARCHAR(32) NOT NULL,
 				`url` VARCHAR(64) NOT NULL,

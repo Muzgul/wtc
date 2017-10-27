@@ -16,11 +16,10 @@
 		$user = getUser($_POST['usr-name']);
 		if (isset($user))
 		{
-			//$pass = hash("sha256", $_POST['usr-passwd']);
-			//if (strcmp($pass, $user['passwd']) == 0)
-			if (strcmp($_POST['usr-passwd'], $user['passwd']) == 0)
+			$pass = hash("sha256", $_POST['usr-passwd']);
+			if (strcmp($pass, $user['passwd']) == 0)
 			{				
-				if ($user['verif'] != '0')
+				if ($user['verif'] != 0)
 				{
 					$response = "Welcome " . $user['login'] . "!";
 					$button = "Go to Gallery";
@@ -53,7 +52,8 @@
 		$user = getUser($_POST['usr-name']);
 		if (!isset($user))
 		{
-			if (newUser($_POST))
+			$user = newUser($_POST);
+			if (isset($user))
 			{
 				$response = "Welcome " . $user['login'] . ", please verify your account.";
 				$button = "Resend email";
@@ -73,7 +73,7 @@
 			$link = "admin.html";
 		}
 	}
-
+/*
 	if (isset($_POST['usr-verif']))
 	{
 		if (verifUser($_POST['usr-name']))
@@ -89,6 +89,7 @@
 			$link = "index.php";
 		}
 	}
+	*/
 ?>
 <!DOCTYPE html>
 <html>
