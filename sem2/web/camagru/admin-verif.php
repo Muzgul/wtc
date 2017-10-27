@@ -2,7 +2,7 @@
 	/* Code based on assumption that passed info is valid, js to validate live */
 	include "dbman.php";
 
-	if (!(isset($_POST['usr-log-in'])) && !(isset($_POST['usr-register'])) && !(isset($_POST['usr-verif']))) {
+	if (!(isset($_POST['usr-log-in'])) && !(isset($_POST['usr-register'])) && !(isset($_GET['usr-verif']))) {
 		#Entered page randomly, redirect to home
 		header("Location: index.php");
 	}
@@ -30,6 +30,7 @@
 					$response = "Welcome " . $user['login'] . ", please verify your account.";
 					$button = "Resend email";
 					$link = "#";
+					echo sendEmail($_POST);
 				}
 			}
 			else
@@ -58,6 +59,7 @@
 				$response = "Welcome " . $user['login'] . ", please verify your account.";
 				$button = "Resend email";
 				$link = "#";
+				echo sendEmail($_POST);
 			}
 			else
 			{
@@ -73,10 +75,10 @@
 			$link = "admin.html";
 		}
 	}
-/*
-	if (isset($_POST['usr-verif']))
+
+	if (isset($_GET['usr-verif']))
 	{
-		if (verifUser($_POST['usr-name']))
+		if (verifUser($_GET['usr-name'], $_GET['usr-hash']))
 		{
 			$response = "User " . $user['login'] . " verified!";
 			$button = "Go to Gallery";
@@ -89,7 +91,7 @@
 			$link = "index.php";
 		}
 	}
-	*/
+	
 ?>
 <!DOCTYPE html>
 <html>
