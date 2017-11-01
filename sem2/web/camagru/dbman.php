@@ -1,7 +1,50 @@
 <?php
-	error_reporting(E_ALL);
-	ini_set('display_errors', 1);
-	
+
+	function fetchImgs($login)
+	{
+		$servername = "localhost";
+		$username = "root";
+		$password = "cullygme";
+		$dbname = "dbMkMeMgc";
+		$img_count = 0;
+		$imgs = "";
+		if ($login == "")
+		{
+			try {
+				$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+				// Error mode: exception
+				$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+				$sql = "SELECT * FROM `tblimg`";
+				foreach ($conn->query($sql)	as $row)
+				{
+					if ($img_count % 10 == 0)
+						$imgs .= "<tr>";
+					$imgs .= '<td><img src="../imgs/' . $row['url'] . '" alt="' . $row['name'] . '" name="' . $row['name'] . '" width="100px" height="100px">';
+					$imgs .= "<div><div>Likes: " . $row['likes'] . "</div></div></td>";
+					if (file_exists("../comments/" . $row['url'] . ".txt"))
+					{
+						$arr = unserialize(file_get_contents("../comments/" . $row['url'] . ".txt"));
+						$imgs .= ""
+					}
+					if ($img_count % 9 == 0 && $img_count != 0)
+						$imgs .= "</tr>";
+					$img_count++;
+				}
+			}
+			catch (PDOException $exception)
+			{
+				echo "[ getUser Error : " . $exception->getMessage() . "]<br/>";
+			}
+			if ($img_count % 9 != 0 && $img_count != 0)
+				$imgs .= "</tr>";
+		}
+		else
+		{
+
+		}
+		return ($imgs);
+	}
+
 	function getUser($usr_name)
 	{
 		$servername = "localhost";
@@ -53,6 +96,7 @@
 
 	function sendEmail($post)
 	{
+
 		$to = $post['usr-email'];
 		$subject = "MkMeMgc Account Verification";
 		$message = "
@@ -67,6 +111,7 @@
 
 		Thank you!
 		MkMeMgc Team";
+		//mail($to, $subject, $message);
 		return ($message);
 		//todo send the email;
 	}
