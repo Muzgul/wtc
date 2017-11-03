@@ -1,5 +1,6 @@
-<?php
+<?php session_start();
 	include "dbman.php";
+	
 	if (!isset($_SESSION['usr-log']))
 	{
 		$_SESSION['usr-log'] = "Guest";
@@ -12,7 +13,6 @@
 		else
 			$usr_vip = "";
 	}
-
 	$imgs = fetchImgs("");
 ?>
 
@@ -22,7 +22,14 @@
 	<title>make-me-magic</title>
 </head>
 <body>
-	<p>Hello</p>
+	<p>Hello 
+	<?php 
+		echo $_SESSION['usr-log'];
+		if (strcmp($_SESSION['usr-log'], "Guest") != 0)
+		{
+			echo ', please click <a href="capture.php">here</a> to take your own.';
+		}
+	?></p>
 	<table><?php echo $imgs; ?></table>
 </body>
 </html>

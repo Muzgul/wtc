@@ -24,7 +24,7 @@
 					if (file_exists("../comments/" . $row['url'] . ".txt"))
 					{
 						$arr = unserialize(file_get_contents("../comments/" . $row['url'] . ".txt"));
-						$imgs .= ""
+						$imgs .= "";
 					}
 					if ($img_count % 9 == 0 && $img_count != 0)
 						$imgs .= "</tr>";

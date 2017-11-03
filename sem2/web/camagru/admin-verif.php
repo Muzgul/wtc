@@ -1,17 +1,18 @@
-<?php
+<?php session_start();
 	/* Code based on assumption that passed info is valid, js to validate live */
 	include "dbman.php";
-	session_start();
+
 
 	if (!(isset($_POST['usr-log-in'])) && !(isset($_POST['usr-register'])) && !(isset($_GET['usr-verif']))) {
 		#Entered page randomly, redirect to home
 		header("Location: index.php");
 	}
 
+
 	$response = "No info";
 	$button = "Go back";
 	$link = "admin.html";
-	
+
 	if (isset($_POST['usr-log-in']))
 	{
 		$user = getUser($_POST['usr-name']);
@@ -25,7 +26,7 @@
 					$response = "Welcome " . $user['login'] . "!";
 					$button = "Go to Gallery";
 					$link = "index.php";
-					$_SESSION['usr-log'] = $user['usr-name'];
+					$_SESSION['usr-log'] = $user['login'];
 				}
 				else
 				{
@@ -85,17 +86,17 @@
 			$response = "User " . $_GET['usr-name'] . " verified!";
 			$button = "Go to Gallery";
 			$link = "index.php";
-			$_SESSION['usr-log'] = $user['usr-name'];
+			$_SESSION['usr-log'] = $user['login'];
 		}
 		else
 		{
 			$response = "User " . $user['login'] . " already verified!";
 			$button = "Go to Gallery";
 			$link = "index.php";
-			$_SESSION['usr-log'] = $user['usr-name'];
+			$_SESSION['usr-log'] = $user['login'];
 		}
 	}
-	
+
 ?>
 <!DOCTYPE html>
 <html>
