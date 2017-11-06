@@ -1,24 +1,12 @@
-<?php 
-	error_reporting(E_ALL);
-	ini_set('display_errors', 1);
+<?php
 
-	include "dbman.php";
-	
-	$post = array(
-		"usr-name" => "murray",
-		"usr-passwd1" => "1234",
-		"usr-email" => "some@email.com"
-	);
+	print_r($_GET);
+	/*header('Content-Type: image/jpeg');
 
-	$user = newUser($post);
-	print_r($user);
+	$bg = imagecreatefromjpeg('download');
+	$img = imagecreatefromjpeg('t.jpg');
+
+	imagecopymerge($bg, $img, 0, 0, 0, 0, imagesx($bg), imagesy($bg), 75);
+
+	imagejpeg($bg, null, 100);*/
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-	<title>ayy</title>
-</head>
-<body>
-	<p><?php echo $response; ?></p>
-</body>
-</html>
