@@ -1,12 +1,20 @@
 <?php
+	
+	$img = $_POST['img'];
+	$img = str_replace('data:image/jpeg;base64,', '', $img);
+	$img = str_replace(' ', '+', $img);
+	$data = base64_decode($img);
+	
+	$success = file_put_contents("temp.jpeg", $data);
+	if ($success)
+		echo '<img src="temp.jpeg">';
+	else
+		echo "shiiit";
 
-	print_r($_GET);
-	/*header('Content-Type: image/jpeg');
+	$bg = imagecreatefromjpeg('temp.jpeg');
+	$img = imagecreatefromjpeg('test.jpg');
 
-	$bg = imagecreatefromjpeg('download');
-	$img = imagecreatefromjpeg('t.jpg');
+	imagecopymerge($bg, $img, 0, 0, 0, 0, imagesx($bg), imagesy($bg), 50);
 
-	imagecopymerge($bg, $img, 0, 0, 0, 0, imagesx($bg), imagesy($bg), 75);
-
-	imagejpeg($bg, null, 100);*/
+	imagejpeg($bg, "temp.jpeg", 100);
 ?>

@@ -29,6 +29,7 @@
 	
 </head>
 <body>
+	<form id="form1"><input type="hidden" id="tempElement" name="img"></form>
 	<div id="container">
 		<video autoplay="true" id="videoElement" class="captureWind" width="640" height="480">
 			
@@ -37,6 +38,7 @@
 			
 		</canvas>
 	</div>
+	<div id="logElement"></div>
 	<button id="captureElement">Capture</button>
 	<button id="resetElement">Reset</button>
 	<button id="saveElement" download="temp.jpeg">Save</button>
@@ -81,7 +83,31 @@
 		{
 			var canvas = document.getElementById("canvasElement");
 			var image = canvas.toDataURL("image/jpeg");
-			window.location = image;
+			document.getElementById('tempElement').value = image;
+            var fd = new FormData(document.forms["form1"]);
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'test.php', true);
+
+            xhr.upload.onprogress = function(e) {
+                if (e.lengthComputable) {
+                    var percentComplete = (e.loaded / e.total) * 100;
+                    console.log(percentComplete + '% uploaded');
+                    alert('Succesfully uploaded');
+                }
+            };
+
+			xhr.onreadystatechange = function() {
+			    if (this.readyState == 4 && this.status == 200) {
+			      document.getElementById("logElement").innerHTML =
+			      this.responseText;
+			    }
+			};
+
+            xhr.onload = function() {
+
+            };
+            xhr.send(fd);
 		}
 
 		document.getElementById('captureElement').addEventListener("click", captureImg);
