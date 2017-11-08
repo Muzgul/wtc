@@ -147,4 +147,35 @@
 		return (false);
 	}
 
+	function getImpose()
+	{
+		$servername = "localhost";
+		$username = "root";
+		$password = "cullygme";
+		$dbname = "dbMkMeMgc";
+		$result = '<table><tr>';
+		$counter = 0;
+		try {
+			$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+			// Error mode: exception
+			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$sql = "SELECT * FROM `tblimpose`";
+			foreach ($conn->query($sql)	as $row)
+			{
+				if ($counter % 10 == 0 && $counter != 0)
+					$result .= '</tr><tr>';
+				$result .= '<td><a href="#" id="' . $row['name'] . '" onclick="';
+				$result .= "drawImg('" . $row['url'] . "');";
+				$result .= '"><img src="' . $row['url'] . '" height="120" width="160" alt="' . $row['name'] . '"></a></td>';
+				$counter += 1;
+			}
+			return ($result);
+		}
+		catch (PDOException $exception)
+		{
+			echo "[ getUser Error : " . $exception->getMessage() . "]<br/>";
+		}
+		return (null);
+	}
+
 ?>

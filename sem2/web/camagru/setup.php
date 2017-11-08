@@ -28,6 +28,13 @@
 				`verif` INT(2) DEFAULT '0')";
 		$conn->exec($sql);
 		echo "[ TABLE ADMIN CREATED ]" . PHP_EOL;
+	}
+	catch (PDOException $exception) {
+		echo "[ TABLE FAIL: " . $exception->getMessage() . " ]<br/>";
+	}
+	try {
+		$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		$sql = "CREATE TABLE `tblimg` (
 				`id` INT(8) PRIMARY KEY AUTO_INCREMENT,
 				`name` VARCHAR(32) NOT NULL, 
@@ -36,6 +43,21 @@
 				`likes` INT(8) DEFAULT '0')";
 		$conn->exec($sql);
 		echo "[ TABLE IMG CREATED ]<br/>";
+		$conn = null;
+	}
+	catch (PDOException $exception) {
+		echo "[ TABLE FAIL: " . $exception->getMessage() . " ]<br/>";
+	}
+
+	try {
+		$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		$sql = "CREATE TABLE `tblimpose` (
+				`id` INT(8) PRIMARY KEY AUTO_INCREMENT,
+				`name` VARCHAR(32) NOT NULL, 
+				`url` VARCHAR(64) NOT NULL)";
+		$conn->exec($sql);
+		echo "[ TABLE IMPOSE CREATED ]<br/>";
 		$conn = null;
 	}
 	catch (PDOException $exception) {
