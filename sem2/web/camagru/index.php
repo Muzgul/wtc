@@ -1,6 +1,12 @@
 <?php session_start();
 	include "dbman.php";
-	
+	/* TODO
+
+		Add image likability - keep table for each img that stores previous likes
+			(LATER) - on hover show usernames of likers
+		Add commentability - Load comments to add own
+
+	*/	
 	if (!isset($_SESSION['usr-log']))
 	{
 		$_SESSION['usr-log'] = "Guest";

@@ -5,6 +5,9 @@
 	*/
 	include "dbman.php";
 
+	if (!isset($_SESSION['usr-log']) || strcmp("Guest", $_SESSION['usr-log']) == 0)
+		header("Location: index.php");
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -30,7 +33,11 @@
 	
 </head>
 <body>
-	<form id="form1"><input type="hidden" id="tempImgElement" name="img"><input type="hidden" id="tempImpElement" name="impose"></form>
+	<form id="form1">
+		<input type="hidden" id="tempImgElement" name="img">
+		<input type="hidden" id="tempImpElement" name="impose">
+		<input type="hidden" name="tempUsrElement" name="usr" value="<?php echo $_SESSION['usr-log']; ?>">
+	</form>
 	<div id="container">
 		<video autoplay="true" id="videoElement" class="captureWind" width="640" height="480"></video>
 		<canvas id="canvasElement" class="captureWind" width="640" height="480"></canvas>

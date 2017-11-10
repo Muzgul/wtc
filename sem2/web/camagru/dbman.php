@@ -1,5 +1,28 @@
 <?php
 
+	function newImg($login, $filename, $url)
+	{
+		$servername = "localhost";
+		$username = "root";
+		$password = "cullygme";
+		$dbname = "dbMkMeMgc";
+		try {
+			$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+			// Error mode: exception
+			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$passwd = hash("sha256", $post['usr-passwd']);
+			$sql = "INSERT INTO `tblimg` (`name`, `creator`, `url`)
+					VALUES ('" . $filename . "', '" . $login . "', '"
+					. $url . "')";
+			$conn->exec($sql);
+		}
+		catch (PDOException $exception)
+		{
+			echo "[ newImg Error : " . $exception->getMessage() . "]<br/>";
+			return (null);
+		}
+	}
+
 	function fetchImgs($login)
 	{
 		$servername = "localhost";

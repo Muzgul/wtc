@@ -1,22 +1,26 @@
-var video = document.getElementById('videoElement');
- 
+		var video = document.getElementById('videoElement');
+
 		navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
-		 
-		if (navigator.getUserMedia) {       
-		    navigator.getUserMedia({video: true}, handleVideo, videoError);
+		
+		if (navigator.getUserMedia)
+		{
+			navigator.getUserMedia({video: true}, handleVideo, videoError);
 		}
-		 
-		function handleVideo(stream) {
-		    video.src = window.URL.createObjectURL(stream);
+		
+		function handleVideo(stream)
+		{
+			video.src = window.URL.createObjectURL(stream);
 		}
-		 
-		function videoError(e) {
-		    // do something
+		
+		function videoError(e)
+		{
+			// do something
 		}
 
 		//Capture image from video
 
-		function captureImg(){
+		function captureImg()
+		{
 			var canvas = document.getElementById('canvasElement');
 			var video = document.getElementById('videoElement');
 			canvas.getContext('2d').drawImage(video, 0, 0);
@@ -62,6 +66,7 @@ var video = document.getElementById('videoElement');
 
 		function drawImg(url)
 		{
+			document.getElementById('tempImpElement').value = url;
 			var canvas = document.getElementById("imposeElement");
 			canvas.style.visibility = "visible";
 			var context = canvas.getContext('2d');

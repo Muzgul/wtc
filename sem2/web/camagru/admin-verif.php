@@ -86,14 +86,14 @@
 			$response = "User " . $_GET['usr-name'] . " verified!";
 			$button = "Go to Gallery";
 			$link = "index.php";
-			$_SESSION['usr-log'] = $user['login'];
+			$_SESSION['usr-log'] = $_GET['usr-name'];
 		}
 		else
 		{
 			$response = "User " . $user['login'] . " already verified!";
 			$button = "Go to Gallery";
 			$link = "index.php";
-			$_SESSION['usr-log'] = $user['login'];
+			$_SESSION['usr-log'] = $_GET['usr-name'];
 		}
 	}
 
