@@ -6,8 +6,9 @@
 	$img = str_replace('data:image/png;base64,', '', $img);
 	$img = str_replace(' ', '+', $img);
 	$data = base64_decode($img);
-	$file_name = "../imgs/usr/" . time().uniqid(rand()) . ".jpeg";
-	
+	$file_name = time().uniqid(rand()) . ".jpeg";
+	$url = "../imgs/usr/" . $file_name;
+
 	$success = file_put_contents("temp.png", $data);
 	if ($success)
 		echo '<img src="' . $file_name . '">';
@@ -19,9 +20,9 @@
 
 	imagecopy($bg, $img, 0, 0, 0, 0, imagesx($bg), imagesy($bg));
 
-	imagejpeg($bg, $file_name, 100);
+	imagejpeg($bg, $url, 100);
 
 	unlink('temp.png');
 
-	newImg($_POST['usr'], $file_name, $file_name);
+	newImg($_POST['usr'], $file_name, $url);
 ?>

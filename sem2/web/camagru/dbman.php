@@ -21,6 +21,14 @@
 			echo "[ newImg Error : " . $exception->getMessage() . "]<br/>";
 			return (null);
 		}
+		if (!file_exists("../comments/" . $filename . ".txt"))
+		{
+			$arr = array(
+				"likes" => array(),
+				"comments" => array()
+			);
+			file_put_contents("../comments/" . $filename . ".txt", serialize($arr));
+		}
 	}
 
 	function fetchImgs($login)
