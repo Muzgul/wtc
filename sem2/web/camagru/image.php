@@ -1,40 +1,5 @@
 <?php session_start();
-	
-	function showInfo($name)
-	{
-		$arr = unserialize(file_get_contents("../comments/" . $name . ".txt"));
-		$likes = 0;
-		$comments = "";
-		foreach ($arr['comments'] as $key => $value) {
-			$comments .= "[ " . $key . " ] - " . $value . PHP_EOL;
-		}
-		foreach ($arr['likes'] as $key => $value) {
-			$likes++;
-		}
-		$return = "<p> $comments </p><p> Likes: $likes </p>";
-		return ($return);
-	}
-
-	function addComment($name, $comment)
-	{
-		echo "yeah";
-		$usr = $_SESSION['usr-log'];
-		$arr = unserialize(file_get_contents("../comments/" . $name . ".txt"));
-		$arr['comments'][$usr] = $comment;
-		file_put_contents("../comments/" . $name . ".txt", serialize($arr));
-		return (showInfo($name));
-	}
-
-	function addLike($name)
-	{
-		$usr = $_SESSION['usr-log'];
-		$arr = unserialize(file_get_contents("../comments/" . $name . ".txt"));
-		array_push($arr['likes'], $usr);
-		return (showInfo($name));
-	}
-	
-	print_r($_GET);
-	print_r($arr);
+	include "imgMan.php";
 ?>
 <!DOCTYPE html>
 <html>
@@ -42,18 +7,56 @@
 	<title>ayyy</title>
 </head>
 <body>
+	<a href="index.php">Home</a>
 	<div>
 		<img id="imgDisp" src="<?php echo $_GET['url']?>" alt="<?php echo $_GET['name'] ?>" width="640" height="480">		
 	</div>
 	<div>
 		<input id="imgComment" type="text" name="comment" placeholder="Type comment here...">
-		<form action="" method="POST"><input type="submit" id="btnComment" value="Comment"></form><button>Like</button>
+		<button onclick="addComment();">Comment</button>
+		<button onclick="addLike();">Like</button>
 		<div id="imgInfo"><?php echo showInfo($_GET['name'], $_GET['url']); ?></div>
 	</div>
 
 	<script type="text/javascript">
 		
-		FINISH THE CONNECTION WITH THE HTTP REQUEST!
+		function addComment()
+		{
+			var comment = document.getElementById("imgComment").value;
+			var img = document.getElementById("imgDisp").alt;
+			if (comment.trim() != "")
+			{
+	            var xhr = new XMLHttpRequest();
+	            var url = 'imgMan.php?wit=comment&comment=' + comment + '&img=' + img;
+	            xhr.open('GET', url, false);
+
+				xhr.onreadystatechange = function() {
+				    if (this.readyState == 4 && this.status == 200) {
+				      document.getElementById("imgInfo").innerHTML =
+				      this.responseText;
+				    }
+				};
+
+	            xhr.send(null);
+			}
+		}
+
+		function addLike()
+		{
+			var img = document.getElementById("imgDisp").alt;
+			var xhr = new XMLHttpRequest();
+            var url = 'imgMan.php?wit=like&img=' + img;
+            xhr.open('GET', url, false);
+
+			xhr.onreadystatechange = function() {
+			    if (this.readyState == 4 && this.status == 200) {
+			      document.getElementById("imgInfo").innerHTML =
+			      this.responseText;
+			    }
+			};
+
+            xhr.send(null);
+		}
 	</script>
 </body>
 </html>

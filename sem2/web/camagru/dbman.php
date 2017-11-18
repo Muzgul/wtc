@@ -50,7 +50,7 @@
 				{
 					if ($img_count % 10 == 0)
 						$imgs .= "<tr>";
-					$imgs .= '<td><a href="image.php?url=' . $row['url'] . '&name=' . $row['name'] . '" target="_blank"><img src="../imgs/' . $row['url'] . '" alt="' . $row['name'] . '" name="' . $row['name'] . '" width="256" height="192"></a></td>';
+					$imgs .= '<td><a href="image.php?url=' . $row['url'] . '&name=' . $row['name'] . '"><img src="../imgs/' . $row['url'] . '" alt="' . $row['name'] . '" name="' . $row['name'] . '" width="256" height="192"></a></td>';
 					if (file_exists("../comments/" . $row['url'] . ".txt"))
 					{
 						$arr = unserialize(file_get_contents("../comments/" . $row['url'] . ".txt"));
