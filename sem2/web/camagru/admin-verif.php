@@ -1,6 +1,6 @@
 <?php session_start();
 	/* Code based on assumption that passed info is valid, js to validate live */
-	include "dbman.php";
+	include "php/admin-func.php";
 
 
 	if (!(isset($_POST['usr-log-in'])) && !(isset($_POST['usr-register'])) && !(isset($_GET['usr-verif']))) {
@@ -27,13 +27,13 @@
 					$button = "Go to Gallery";
 					$link = "index.php";
 					$_SESSION['usr-log'] = $user['login'];
+					header("Location: index.php");
 				}
 				else
 				{
 					$response = "Welcome " . $user['login'] . ", please verify your account.";
-					$button = "Resend email";
+					$button = "";
 					$link = "#";
-					echo sendEmail($_POST);
 				}
 			}
 			else
@@ -90,10 +90,9 @@
 		}
 		else
 		{
-			$response = "User " . $user['login'] . " already verified!";
-			$button = "Go to Gallery";
-			$link = "index.php";
-			$_SESSION['usr-log'] = $_GET['usr-name'];
+			$response = "Error verifying user!";
+			$button = "Unknown Error";
+			$link = "#";
 		}
 	}
 

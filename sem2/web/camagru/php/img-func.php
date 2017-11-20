@@ -2,7 +2,7 @@
 
 	function showInfo($name)
 	{
-		$arr = unserialize(file_get_contents("../comments/" . $name . ".txt"));
+		$arr = unserialize(file_get_contents("../../comments/" . $name . ".txt"));
 		$likes = 0;
 		$comments = "";
 		foreach ($arr['comments'] as $key => $value) {
@@ -18,22 +18,22 @@
 	function addComment($name, $comment)
 	{
 		$usr = $_SESSION['usr-log'];
-		$arr = unserialize(file_get_contents("../comments/" . $name . ".txt"));
+		$arr = unserialize(file_get_contents("../../comments/" . $name . ".txt"));
 		array_push($arr['comments'], "[ " . $usr . " ] - " . $comment);
-		file_put_contents("../comments/" . $name . ".txt", serialize($arr));
+		file_put_contents("../../comments/" . $name . ".txt", serialize($arr));
 		return (showInfo($name));
 	}
 
 	function addLike($name)
 	{
 		$usr = $_SESSION['usr-log'];
-		$arr = unserialize(file_get_contents("../comments/" . $name . ".txt"));
+		$arr = unserialize(file_get_contents("../../comments/" . $name . ".txt"));
 		foreach ($arr['likes'] as $key => $value) {
 			if ($value == $usr)
 				return (showInfo($name));
 		}
 		array_push($arr['likes'], $usr);
-		file_put_contents("../comments/" . $name . ".txt", serialize($arr));
+		file_put_contents("../../comments/" . $name . ".txt", serialize($arr));
 		return (showInfo($name));
 	}
 
@@ -46,6 +46,10 @@
 		if ($_GET['wit'] == "like")
 		{
 			echo addLike($_GET['img']);
+		}
+		if ($_GET['wit'] == "load")
+		{
+			echo showInfo($_GET['img']);
 		}
 	}
 ?>

@@ -3,7 +3,8 @@
 <html>
 <head>
 	<title>some random word</title>
-	<script type="text/javascript" src="func.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+
 </head>
 <body>
 	<div class="container" id="admin-form">
@@ -18,10 +19,10 @@
 		<div class="row">
 			<form action="admin-verif.php" method="POST" id="log-in-form" class="container">
 				<div class="row">
-					<input type="text" name="usr-name" placeholder="Username">
+					<input type="text" name="usr-name" placeholder="Username" required>
 				</div>
 				<div class="row">
-					<input type="password" name="usr-passwd" placeholder="Password">
+					<input type="password" name="usr-passwd" placeholder="Password" required>
 				</div>
 				<div class="row">
 					<input type="submit" name="usr-log-in" value="Log in">
@@ -29,22 +30,25 @@
 			</form>
 			<form action="admin-verif.php" method="POST" id="register-form" class="container">
 				<div class="row">
-					<input type="text" name="usr-name" placeholder="Username">
+					<input type="text" name="usr-name" id="usr-name" placeholder="Username" required>
 				</div>
 				<div class="row">
-					<input type="password" name="usr-passwd" placeholder="Password">
+					<input type="password" name="usr-passwd" id="usr-passwd" placeholder="Password" required>
 				</div>
 				<div class="row">
-					<input type="password" name="usr-passwd2" placeholder="Re-enter password">
+					<input type="password" name="usr-passwd2" id="usr-passwd2" placeholder="Re-enter password" required>
 				</div>
 				<div class="row">
-					<input type="email" name="usr-email" placeholder="john.doe@wethinkcode.co.za">
+					<input type="email" name="usr-email" id="usr-email" placeholder="john.doe@wethinkcode.co.za" required>
 				</div>
 				<div class="row">
-					<input type="submit" name="usr-register" value="Register">
+					<input type="submit" name="usr-register" id="usr-register" value="Register">
 				</div>
 			</form>
 		</div>
 	</div>
+
+	<script type="text/javascript" src="js/admin.js"></script>
+
 </body>
 </html>

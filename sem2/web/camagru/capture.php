@@ -1,13 +1,51 @@
 <?php session_start();
-	/*  CODE TO LOOK AT! 
-		
-		https://trinitytuts.com/capture-and-save-image-with-html5-and-php/
-	*/
-	include "dbman.php";
+
+	include "php/capture-func.php";
 
 	if (!isset($_SESSION['usr-log']) || strcmp("Guest", $_SESSION['usr-log']) == 0)
 		header("Location: index.php");
 
+	function fetchImgs($login)
+	{
+		$servername = "localhost";
+		$username = "root";
+		$password = "cullygme";
+		$dbname = "dbMkMeMgc";
+		$img_count = 0;
+		$imgs = "";
+		try {
+			$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+			// Error mode: exception
+			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			if ($login == "")
+				$sql = "SELECT * FROM `tblimg`";
+			else
+				$sql = "SELECT * FROM `tblimg` WHERE `creator` LIKE '" . $login . "'";
+			foreach ($conn->query($sql)	as $row)
+			{
+				if ($img_count % 10 == 0)
+					$imgs .= "<tr>";
+				$imgs .= '<td><a href="image.php?url=' . $row['url'] . '&name=' . $row['name'] . '"><img src="../imgs/' . $row['url'] . '" alt="' . $row['name'] . '" name="' . $row['name'] . '" width="256" height="192"></a></td>';
+				if (file_exists("../comments/" . $row['url'] . ".txt"))
+				{
+					$arr = unserialize(file_get_contents("../comments/" . $row['url'] . ".txt"));
+					$imgs .= "";
+				}
+				if ($img_count % 9 == 0 && $img_count != 0)
+					$imgs .= "</tr>";
+				$img_count++;
+			}
+		}
+		catch (PDOException $exception)
+		{
+			echo "[ getUser Error : " . $exception->getMessage() . "]<br/>";
+		}
+		if ($img_count % 9 != 0 && $img_count != 0)
+			$imgs .= "</tr>";
+		return ($imgs);
+	}
+
+	$result = fetchImgs($_SESSION['usr-log']);
 ?>
 <!DOCTYPE html>
 <html>
@@ -36,21 +74,21 @@
 	<form id="form1">
 		<input type="hidden" id="tempImgElement" name="img">
 		<input type="hidden" id="tempImpElement" name="impose">
-		<input type="hidden" name="tempUsrElement" name="usr" value="<?php echo $_SESSION['usr-log']; ?>">
+		<input type="hidden" id="tempUsrElement" name="usr" value="<?php echo $_SESSION['usr-log']; ?>">
 	</form>
 	<div id="container">
 		<video autoplay="true" id="videoElement" class="captureWind" width="640" height="480"></video>
 		<canvas id="canvasElement" class="captureWind" width="640" height="480"></canvas>
 		<canvas id="imposeElement" class="captureWind" width="640" height="480"></canvas>
 	</div>
-	
-	<button id="captureElement">Capture</button>
+
 	<button id="resetElement">Reset</button>
+	<button id="captureElement" disabled="false">Capture</button>
 	<button id="saveElement" disabled="false">Save</button>
 	<input type="file" id="tempUplElement">
-	<?php echo getImpose(); ?>
-	<div id="logElement">[ See your image here ]</div>
-	<script type="text/javascript" src="func.js"></script>
+	<div><?php echo getImpose(); ?></div>
+	<div id="logElement"><?php echo $result; ?></div>
+	<script type="text/javascript" src="js/capture.js"></script>
 	
 </body>
 </html>

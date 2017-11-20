@@ -34,6 +34,7 @@
 			document.getElementById("tempUplElement").value = "";
 			document.getElementById("logElement").innerHTML = "[ See your image here ]";
 			document.getElementById('saveElement').disabled = true;
+			document.getElementById('captureElement').disabled = true;
 			var canvas = document.getElementById('canvasElement');
 			var canvas2 = document.getElementById('imposeElement');
 			var video = document.getElementById('videoElement');
@@ -49,12 +50,11 @@
             var fd = new FormData(document.forms["form1"]);
 
             var xhr = new XMLHttpRequest();
-            xhr.open('POST', 'test.php', true);
+            xhr.open('POST', 'php/capture-save.php', true);
 
 			xhr.onreadystatechange = function() {
 			    if (this.readyState == 4 && this.status == 200) {
-			      document.getElementById("logElement").innerHTML =
-			      this.responseText;
+			      window.location.replace(this.responseText);
 			    }
 			};
 
@@ -78,6 +78,7 @@
 			};
 			document.getElementById('tempImpElement').value = url;
 			canvas.style.visibility = "visible";
+			document.getElementById('captureElement').disabled = false;
 		}
 
 		function uploadImg()
@@ -111,4 +112,5 @@
 
 		document.onload = function(){
 			document.getElementById('saveElement').disabled = true;
+			document.getElementById('captureElement').disabled = true;
 		};

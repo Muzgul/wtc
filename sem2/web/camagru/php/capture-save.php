@@ -1,5 +1,5 @@
 <?php
-	include "dbman.php";
+	include "capture-func.php";
 
 	$img = $_POST['img'];
 	$impose = $_POST['impose'];
@@ -10,19 +10,15 @@
 	$url = "../imgs/usr/" . $file_name;
 
 	$success = file_put_contents("temp.png", $data);
-	if ($success)
-		echo '<img src="' . $file_name . '">';
-	else
-		echo "shiiit";
 
 	$bg = imagecreatefrompng('temp.png');
-	$img = imagecreatefrompng($impose);
+	$img = imagecreatefrompng("../" . $impose);
 
 	imagecopy($bg, $img, 0, 0, 0, 0, imagesx($bg), imagesy($bg));
 
-	imagejpeg($bg, $url, 100);
+	imagejpeg($bg, "../" . $url, 100);
 
 	unlink('temp.png');
 
-	newImg($_POST['usr'], $file_name, $url);
+	echo newImg($_POST['usr'], $file_name, $url);
 ?>
