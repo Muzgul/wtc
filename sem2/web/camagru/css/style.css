@@ -1,5 +1,74 @@
 /* Global style sheet */
 
+#header {
+	position: absolute;
+	width: 100%;
+	left: 0px;
+	top: 0px;
+	padding-top: 1%;
+	padding-bottom: 1%;
+	background-color: #404F61;
+	
+
+}
+
+#header-title {
+	position: relative;
+	font-size: 5vw;
+	color: #559CAD;
+	height: 100%;	
+	text-align: center;
+	float: left;
+	width: 40%;
+}
+
+p {
+	font-family: sans-serif;
+	margin: 0 auto;
+	height: 100%;
+	line-height: 100%;
+	vertical-align: middle;
+}
+
+p:hover {
+	font-weight: bold;
+	font-family: serif;
+}
+
+.header-clickables {
+	position: relative;
+	font-size: 4vw;
+	color: #A37774;
+	width: 15%;
+	height: 100%;
+	text-align: center;
+	float: right;
+}
+
+#content {
+	position: absolute;
+	border: 1vw solid #CCFBFE;
+	min-width: 80%;
+	min-height: 85%;
+	top: 0;
+	left: 10%;
+	z-index: -1;
+	padding-top: 10%;
+}
+
+#footer {
+	font-family: sans-serif;
+	color: #A37774;
+	position: absolute;
+	width: 98%;
+	left: 0px;
+	bottom: 0px;
+	padding-top: 1%;
+	padding-bottom: 1%;
+	padding-left: 2%;
+	background-color: #404F61;
+}
+
 .invalidInput {
 	background-color: red;
 }

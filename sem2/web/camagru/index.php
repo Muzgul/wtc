@@ -1,6 +1,6 @@
 <?php session_start();
 	
-	if (!isset($_SESSION['usr-log']))
+	if (!isset($_SESSION['usr-log']) || ($_GET['logout'] == "true"))
 	{
 		$_SESSION['usr-log'] = "Guest";
 		$usr_vip = "disabled";
