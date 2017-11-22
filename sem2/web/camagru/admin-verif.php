@@ -3,7 +3,7 @@
 	include "php/admin-func.php";
 
 
-	if (!(isset($_POST['usr-log-in'])) && !(isset($_POST['usr-register'])) && !(isset($_GET['usr-verif']))) {
+	if (!(isset($_POST['usr-log-in'])) && !(isset($_POST['usr-register'])) && !(isset($_GET['usr-verif'])) && !(isset($_POST['usr-reset'])) && !(isset($_POST['usr-pass-reset']))) {
 		#Entered page randomly, redirect to home
 		header("Location: index.php");
 	}
@@ -32,8 +32,9 @@
 				else
 				{
 					$response = "Welcome " . $user['login'] . ", please verify your account.";
-					$button = "";
+					$button = "Email sent";
 					$link = "#";
+					echo sendEmail($_POST, "verif");
 				}
 			}
 			else
@@ -62,7 +63,7 @@
 				$response = "Welcome " . $user['login'] . ", please verify your account.";
 				$button = "Resend email";
 				$link = "#";
-				echo sendEmail($_POST);
+				echo sendEmail($_POST, "verif");
 			}
 			else
 			{
@@ -76,6 +77,44 @@
 			$response = "User " . $user['login'] . " already exists!";
 			$button = "Go back";
 			$link = "admin.html";
+		}
+	}
+
+	if (isset($_POST['usr-reset']))
+	{
+		$user = getUser($_POST['usr-name1']);
+		if (isset($user))
+		{
+			if ($user['verif'] == "1")
+			{
+				$response = "Reset email sent";
+				echo sendEmail($user, "reset");
+			}
+			else
+			{
+				$response = "User " . $_POST['usr-name1'] . " not verified!";
+				$button = "Email sent";
+				$link = "#";
+			}
+		}
+		else
+		{
+			$response = "User " . $_POST['usr-name1'] . " does not exist!";
+			$button = "Go back";
+			$link = "admin.html";
+		}		
+	}
+
+	if (isset($_POST['usr-pass-reset']))
+	{
+		if ($_POST['passwdnw'] == $_POST['passwdre'])
+		{
+			$response = "Password changed!";
+			changePasswd($_POST['usr-namenw'], $_POST['passwdnw']);
+		}
+		else
+		{
+			$response = "New passwords do not match!";
 		}
 	}
 
@@ -100,10 +139,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>ayyyyy</title>
+	<title>Make Me Magic</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
-	<h2><?php echo $response; ?></h2>
-	<?php echo '<a href="' . $link . '">' . $button . '</a>'; ?>
+	<div id="header">
+		<a href="index.php"><div id="header-title"><p>Make Me Magic</p></div></a>
+		<a href="index.php?logout=true"><div class="header-clickables"><p>Log out</p></div></a>
+		<a href="admin.html"><div class="header-clickables"><p>Log in<p></div></a>
+	</div>
+
+	<div id="content">
+		<h2><?php echo $response; ?></h2>
+		<?php echo '<a href="' . $link . '">' . $button . '</a>'; ?>
+	</div>
+
+	<div id="footer">
+		<div>by Murray MacDonald</div>
+		<!--- Insert social media -->
+	</div>
 </body>
 </html>

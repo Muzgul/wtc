@@ -2,53 +2,68 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>some random word</title>
+	<title>Make Me Magic</title>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
-
 </head>
 <body>
-	<div class="container" id="admin-form">
-		<div class="row">
-			<div class="col-6">
-				<a href="#" class="active" id="log-in-link">Log in</a>
-			</div>
-			<div class="col-6">
-				<a href="#" id="register-link">Register</a>
-			</div>
-		</div>
-		<div class="row">
-			<form action="admin-verif.php" method="POST" id="log-in-form" class="container">
-				<div class="row">
-					<input type="text" name="usr-name" placeholder="Username" required>
-				</div>
-				<div class="row">
-					<input type="password" name="usr-passwd" placeholder="Password" required>
-				</div>
-				<div class="row">
-					<input type="submit" name="usr-log-in" value="Log in">
-				</div>
-			</form>
-			<form action="admin-verif.php" method="POST" id="register-form" class="container">
-				<div class="row">
-					<input type="text" name="usr-name" id="usr-name" placeholder="Username" required>
-				</div>
-				<div class="row">
-					<input type="password" name="usr-passwd" id="usr-passwd" placeholder="Password" required>
-				</div>
-				<div class="row">
-					<input type="password" name="usr-passwd2" id="usr-passwd2" placeholder="Re-enter password" required>
-				</div>
-				<div class="row">
-					<input type="email" name="usr-email" id="usr-email" placeholder="john.doe@wethinkcode.co.za" required>
-				</div>
-				<div class="row">
-					<input type="submit" name="usr-register" id="usr-register" value="Register">
-				</div>
-			</form>
-		</div>
+	<div id="header">
+		<a href="index.php"><div id="header-title"><p>Make Me Magic</p></div></a>
+		<a href="index.php?logout=true"><div class="header-clickables"><p>Log out</p></div></a>
+		<a href="admin.html"><div class="header-clickables"><p>Log in<p></div></a>
 	</div>
 
-	<script type="text/javascript" src="js/admin.js"></script>
+	<div id="content">
+		<div class="container" id="admin-form">
+			<div class="row">
+				<div class="col-6">
+					<a href="#" class="active" id="log-in-link">Log in</a>
+				</div>
+				<div class="col-6">
+					<a href="#" id="register-link">Register</a>
+				</div>
+			</div>
+			<div class="row">
+				<form action="admin-verif.php" method="POST" id="log-in-form" class="container">
+					<div class="row">
+						<input type="text" name="usr-name" placeholder="Username" required>
+					</div>
+					<div class="row">
+						<input type="password" name="usr-passwd" placeholder="Password" required>
+					</div>
+					<div class="row">
+						<input type="submit" name="usr-log-in" value="Log in">
+					</div>
+				</form>
+				<form action="admin-verif.php" method="POST" id="register-form" class="container">
+					<div class="row">
+						<input type="text" name="usr-name" id="usr-name" placeholder="Username" required>
+					</div>
+					<div class="row">
+						<input type="password" name="usr-passwd" id="usr-passwd" placeholder="Password" required>
+					</div>
+					<div class="row">
+						<input type="password" name="usr-passwd2" id="usr-passwd2" placeholder="Re-enter password" required>
+					</div>
+					<div class="row">
+						<input type="email" name="usr-email" id="usr-email" placeholder="john.doe@wethinkcode.co.za" required>
+					</div>
+					<div class="row">
+						<input type="submit" name="usr-register" id="usr-register" value="Register">
+					</div>
+				</form>
+				<form action="admin-verif.php" method="POST">
+					<input type="text" name="usr-name1" placeholder="Username" required>
+					<input type="submit" name="usr-reset" value="Reset Password">
+				</form>
+			</div>
+		</div>
 
+		<script type="text/javascript" src="js/admin.js"></script>
+	</div>
+
+	<div id="footer">
+		<div>by Murray MacDonald</div>
+		<!--- Insert social media -->
+	</div>
 </body>
 </html>

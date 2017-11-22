@@ -5,7 +5,7 @@
 		$servername = "localhost";
 		$username = "root";
 		$password = "cullygme";
-		$dbname = "dbMkMeMgc";
+		$dbname = "dbmkmemgc";
 		try {
 			$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
 			// Error mode: exception
@@ -30,7 +30,7 @@
 		$servername = "localhost";
 		$username = "root";
 		$password = "cullygme";
-		$dbname = "dbMkMeMgc";
+		$dbname = "dbmkmemgc";
 		try {
 			$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
 			// Error mode: exception
@@ -49,26 +49,81 @@
 		}
 	}
 
-	function sendEmail($post)
+	function sendEmail($post, $type)
 	{
+		if ($type == "verif")
+		{
+			$to = $post['usr-email'];
+			$subject = "MkMeMgc Account Verification";
+			$message = "
+			Thank you for signing up with Make Me Magic!
 
-		$to = $post['usr-email'];
-		$subject = "MkMeMgc Account Verification";
-		$message = "
-		Thank you for signing up with Make Me Magic!
+			Your account details:
+			[ Username: " . $post['usr-name'] . " ]
+			[ Password: " . $post['usr-passwd'] . " ]
 
-		Your account details:
-		[ Username: " . $post['usr-name'] . " ]
-		[ Password: " . $post['usr-passwd'] . " ]
+			Please follow the link to finalise the verification process:
+			<a href='http://127.0.0.1:8080/camagru/admin-verif.php?usr-verif=yes&usr-name=" . $post['usr-name'] . "&usr-hash=" . hash("sha256", $post['usr-passwd']) . "'>Verify</a>
 
-		Please follow the link to finalise the verification process:
-		http://127.0.0.1:8080/camagru/admin-verif.php?usr-verif=yes&usr-name=" . $post['usr-name'] . "&usr-hash=" . hash("sha256", $post['usr-passwd']) . "
+			Thank you!
+			MkMeMgc Team";
+			//mail($to, $subject, $message);
+			return ($message);
+			//todo send the email;
+		}
+		if ($type == "reset")
+		{
+			$to = $post['email'];
+			$subject = 'MkMeMgc Password Reset';
+			$message = "
+				Reset Password: <br/>
+				<form action='admin-verif.php' method='POST'>
+					<input type='text' name='passwdnw' placeholder='New password'>
+					<input type='text' name='passwdre' placeholder='Retype password'>
+					<input type='hidden' name='usr-namenw' value='" . $post['login'] . "' >
+					<input type='submit' name='usr-pass-reset' value='Reset'>
+				</form>
+			";
+			return ($message);
+		}
 
-		Thank you!
-		MkMeMgc Team";
-		//mail($to, $subject, $message);
-		return ($message);
-		//todo send the email;
+		if ($type == "comment")
+		{
+			$user = getUser($post['creator']);
+
+			$to = $user['email'];
+			$usbject = "MkMeMgc Comment Notification";
+			$message = "Hi " . $user['login'] . ", your image just received a comment: [ " . $post['usr-log'] . " ] - " . $post['comment'] . ".";
+			return ($message);
+		}
+	}
+
+	function changePasswd($usr_name, $new_pass)
+	{
+		$servername = "localhost";
+		$username = "root";
+		$password = "cullygme";
+		$dbname = "dbmkmemgc";
+
+		$pass = hash("sha256", $new_pass);
+		$user = getUser($usr_name);
+		if (isset($user))
+		{
+			try {
+				$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+				// Error mode: exception
+				$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+				$sql = "UPDATE `tbladmin`
+						SET `passwd` = '" . $pass . "'
+						WHERE `login` LIKE '" . $usr_name . "'";
+				$conn->exec($sql);
+				return (true);
+			}
+			catch (PDOException $exception)
+			{
+			}
+		}
+		return (false);
 	}
 
 	function verifUser($usr_name, $usr_hash)
@@ -76,7 +131,7 @@
 		$servername = "localhost";
 		$username = "root";
 		$password = "cullygme";
-		$dbname = "dbMkMeMgc";
+		$dbname = "dbmkmemgc";
 
 		$user = getUser($usr_name);
 		if (isset($user) && $user['verif'] != 1)
@@ -95,7 +150,6 @@
 				}
 				catch (PDOException $exception)
 				{
-					echo "[ verifUser Error : " . $exception->getMessage() . "]<br/>";
 				}
 			}
 		}

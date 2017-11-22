@@ -1,5 +1,87 @@
 /* Global style sheet */
 
+#pagination
+{
+	float: right;
+	position: relative;
+}
+
+#pagination li
+{
+	display: inline-block;
+}
+
+#pagination li a
+{
+	text-decoration: none;
+	color: #A37774;
+}
+
+#pagination li a:visited
+{
+	color: #A37774;
+}
+
+#thebything 
+{
+	position: relative;
+	float: left;
+}
+
+#container {
+	margin: 0 auto;
+    width: 640px;
+    height: 480px;
+    border: 10px #333 solid;
+    position: relative;
+}
+
+#under-container {
+	margin: 0 auto;
+    width: 640px;
+    position: relative;
+}
+
+#capture-panel
+{
+	float: left;
+    width: 640px;
+    height: 480px;
+    border: 10px #333 solid;
+    position: relative;
+}
+
+#panel-cont 
+{
+	float: left;
+    width: 640px;
+    position: relative;
+}
+
+#logElement
+{
+	width: 264px;
+	padding: 4px;
+	float: right;
+	overflow: hidden;
+}
+#imposeElement
+{
+	width: 640px;
+	float: left;
+	overflow: hidden;
+}
+	
+.captureWind {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#canvasElement{
+	visibility: hidden;
+}
+
 #header {
 	position: absolute;
 	width: 100%;

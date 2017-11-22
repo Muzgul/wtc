@@ -2,7 +2,7 @@
 	include "config.php";
 
 	try {
-		$conn = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+		$conn = new PDO("mysql:host=localhost;dbname=mysql", $DB_USER, $DB_PASSWORD);
 		// Error mode: exception
 		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		$sql = "CREATE DATABASE `dbMkMeMgc`";

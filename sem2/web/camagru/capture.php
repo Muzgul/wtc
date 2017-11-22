@@ -45,50 +45,50 @@
 		return ($imgs);
 	}
 
-	$result = fetchImgs($_SESSION['usr-log']);
+	$result = "<div id='logElement'><h3>Your other posts.</h3>" . fetchImgs($_SESSION['usr-log']) . "</div>";
+	$impose = "<div id='imposeElement'>" . getImpose() . "</div>";
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
-	<title>ayy</title>
-	<style>
-	#container {
-	    margin: 0px auto;
-	    width: 640px;
-	    height: 480px;
-	    border: 10px #333 solid;
-	    position: relative;
-	}
-	.captureWind {
-	    position: absolute;
-	    top: 0;
-	    left: 0;
-	}
-	#canvasElement{
-		visibility: hidden;
-	}
-	</style>
-	
+	<title>Make Me Magic</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
+
 	<form id="form1">
 		<input type="hidden" id="tempImgElement" name="img">
 		<input type="hidden" id="tempImpElement" name="impose">
 		<input type="hidden" id="tempUsrElement" name="usr" value="<?php echo $_SESSION['usr-log']; ?>">
 	</form>
-	<div id="container">
-		<video autoplay="true" id="videoElement" class="captureWind" width="640" height="480"></video>
-		<canvas id="canvasElement" class="captureWind" width="640" height="480"></canvas>
-		<canvas id="imposeElement" class="captureWind" width="640" height="480"></canvas>
+
+	
+
+	<div id="panel-cont">
+
+		<div id="capture-panel">
+			<video autoplay="true" id="videoElement" class="captureWind" width="640" height="480"></video>
+			<canvas id="canvasElement" class="captureWind" width="640" height="480"></canvas>
+			<canvas id="imposeElement" class="captureWind" width="640" height="480"></canvas>
+		</div>
+
+		<button id="resetElement">Reset</button>
+		<button id="captureElement" disabled="false">Capture</button>
+		<button id="saveElement" disabled="false">Save</button>
+		<input type="file" id="tempUplElement">
+				
 	</div>
 
-	<button id="resetElement">Reset</button>
-	<button id="captureElement" disabled="false">Capture</button>
-	<button id="saveElement" disabled="false">Save</button>
-	<input type="file" id="tempUplElement">
-	<div><?php echo getImpose(); ?></div>
-	<div id="logElement"><?php echo $result; ?></div>
-	<script type="text/javascript" src="js/capture.js"></script>
+	<div><?php echo $result . $impose; ?></div>	
 	
+	<div id="footer">
+		<div>by Murray MacDonald</div>
+		<!--- Insert social media -->
+		<a href="index.php"><div id="header-title"><p>Make Me Magic</p></div></a>
+		<a href="index.php?logout=true"><div class="header-clickables"><p>Log out</p></div></a>
+	</div>
+
+	<script type="text/javascript" src="js/capture.js"></script>
 </body>
 </html>
