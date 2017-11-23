@@ -15,14 +15,7 @@
 	<div id="content">
 		<div class="container" id="admin-form">
 			<div class="row">
-				<div class="col-6">
-					<a href="#" class="active" id="log-in-link">Log in</a>
-				</div>
-				<div class="col-6">
-					<a href="#" id="register-link">Register</a>
-				</div>
-			</div>
-			<div class="row">
+				<h2>Log in:</h2>
 				<form action="admin-verif.php" method="POST" id="log-in-form" class="container">
 					<div class="row">
 						<input type="text" name="usr-name" placeholder="Username" required>
@@ -34,6 +27,12 @@
 						<input type="submit" name="usr-log-in" value="Log in">
 					</div>
 				</form>
+				<h2>Register:</h2>
+				<h4>Password require at least:</h4>
+				<ul>
+					<li>Minimum 6 characters.</li>
+					<li>Atleast one NUMBER or CAPITAL.</li>
+				</ul>
 				<form action="admin-verif.php" method="POST" id="register-form" class="container">
 					<div class="row">
 						<input type="text" name="usr-name" id="usr-name" placeholder="Username" required>
@@ -51,6 +50,7 @@
 						<input type="submit" name="usr-register" id="usr-register" value="Register">
 					</div>
 				</form>
+				<h2>Reset Password:</h2>
 				<form action="admin-verif.php" method="POST">
 					<input type="text" name="usr-name1" placeholder="Username" required>
 					<input type="submit" name="usr-reset" value="Reset Password">

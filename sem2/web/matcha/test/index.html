@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>THIS IS A TEST</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+	<input type="text" name="userID">
+	<input type="submit" name="newUsr" id="newUsr">
+
+	<script type="text/javascript">
+		$(document).ready(function ()
+		{
+			$("newUsr").click(function ()
+				{
+					
+				});
+		});
+	</script>
+</body>
+</html>
+
+<!--
+	For the chat:
+		-User request chat
+		-User accept chat, executes the caht setup
+		-chat remains open and active untill someone leaves
+		-Chat history (file) only be deleted if user is the final user, 
+			ie last person to leave
+			OR
+			First user to leave delets file, leaves notification of chat ended
+
+-->

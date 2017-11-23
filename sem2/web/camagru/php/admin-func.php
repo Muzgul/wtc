@@ -68,7 +68,7 @@
 			Thank you!
 			MkMeMgc Team";
 			//mail($to, $subject, $message);
-			return ($message);
+			mail($to, $subject, $message);
 			//todo send the email;
 		}
 		if ($type == "reset")
@@ -84,7 +84,7 @@
 					<input type='submit' name='usr-pass-reset' value='Reset'>
 				</form>
 			";
-			return ($message);
+			mail($to, $subject, $message);
 		}
 
 		if ($type == "comment")
@@ -92,9 +92,9 @@
 			$user = getUser($post['creator']);
 
 			$to = $user['email'];
-			$usbject = "MkMeMgc Comment Notification";
+			$subject = "MkMeMgc Comment Notification";
 			$message = "Hi " . $user['login'] . ", your image just received a comment: [ " . $post['usr-log'] . " ] - " . $post['comment'] . ".";
-			return ($message);
+			mail($to, $subject, $message);
 		}
 	}
 
