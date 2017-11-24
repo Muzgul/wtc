@@ -6,12 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Matcha</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
 
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-md-8 col-md-offset-2">
+			<div class="col-md-12">
 				<div class="container-fluid">
 					<div class="panel panel-default">
 						<div class="tab-content">
@@ -32,9 +33,9 @@
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2 navbar-fixed-bottom">
 				<ul class="nav nav-pills nav-justified" role="tablist" id="panTabs">
-					<li role="presentation" class="active"><a href="#" id="btnExplore" role="tab" data-toggle="pill">Explore</a></li>
-					<li role="presentation"><a href="#" id="btnProfile" role="tab" data-toggle="pill">Profile</a></li>
-					<li role="presentation"><a href="#" id="btnChat" role="tab" data-toggle="pill">Chat</a></li>
+					<li role="presentation" class="active"><a href="#panExplore" id="btnExplore" role="tab" data-toggle="pill" aria-controls="panExplore">Explore</a></li>
+					<li role="presentation"><a href="#panProfile" id="btnProfile" role="tab" data-toggle="pill" aria-controls="panProfile">Profile</a></li>
+					<li role="presentation"><a href="#panChat" id="btnChat" role="tab" data-toggle="pill" aria-controls="panChat">Chat</a></li>
 				</ul>				
 			</div>
 		</div>
@@ -44,5 +45,6 @@
 	<!-- INCLUDES -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="script.js"></script>
 </body>
 </html>
