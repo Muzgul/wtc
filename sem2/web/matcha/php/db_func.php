@@ -1,20 +1,11 @@
-<?php session_start();
-
-	if (isset($_POST))
-	{
-		if (isset($_POST['reg-usrname']))
-		{
-			$user = newUser($_POST['reg-usrname'], $_POST['reg-passwd1'], $_POST['reg-email']);
-			$_SESSION['active-usr'] = $user['login'];
-		}
-	}
+ <?php
 
 	function getUser($usr_name)
 	{
 		$servername = "localhost";
 		$username = "root";
 		$password = "cullygme";
-		$dbname = "dbmkmemgc";
+		$dbname = "matcha";
 		try {
 			$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
 			// Error mode: exception
@@ -34,22 +25,22 @@
 		return (null);
 	}
 
-	function newUser($usr_name, $usr_passwd, $usr_email)
+	function newUser($post)
 	{
 		$servername = "localhost";
 		$username = "root";
 		$password = "cullygme";
-		$dbname = "dbmkmemgc";
+		$dbname = "matcha";
 		try {
 			$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
 			// Error mode: exception
 			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-			$passwd = hash("sha256", $usr_passwd);
+			$passwd = hash("sha256", $post['usr-passwd']);
 			$sql = "INSERT INTO `tbladmin` (`login`, `email`, `passwd`)
-					VALUES ('" . $usr_name . "', '" . $usr_email . "', '"
+					VALUES ('" . $post['usr-name'] . "', '" . $post['usr-email'] . "', '"
 					. $passwd . "')";
 			$conn->exec($sql);
-			return (getUser($usr_name);
+			return (getUser($post['usr-name']));
 		}
 		catch (PDOException $exception)
 		{
@@ -62,38 +53,44 @@
 	{
 		if ($type == "verif")
 		{
-			$to = $post['usr-email'];
+			$to = $post['reg-email'];
 			$subject = "MkMeMgc Account Verification";
+			$headers = "MIME-Version: 1.0\r\n";
+			$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
 			$message = "
 			Thank you for signing up with Make Me Magic!
 
 			Your account details:
-			[ Username: " . $post['usr-name'] . " ]
-			[ Password: " . $post['usr-passwd'] . " ]
+			[ Username: " . $post['reg-usrname'] . " ]
+			[ Password: " . $post['reg-passwd1'] . " ]
 
 			Please follow the link to finalise the verification process:
-			<a href='http://127.0.0.1:8080/camagru/admin-verif.php?usr-verif=yes&usr-name=" . $post['usr-name'] . "&usr-hash=" . hash("sha256", $post['usr-passwd']) . "'>Verify</a>
+			<a href='http://127.0.0.1:8080/admin-verif.php?usr-verif=yes&usr-name=" . $post['reg-usrname'] . "&usr-hash=" . hash("sha256", $post['reg-passwd1']) . "'>Verify</a>
 
 			Thank you!
 			MkMeMgc Team";
 			//mail($to, $subject, $message);
-			mail($to, $subject, $message);
+			mail($to, $subject, $message, $headers);
 			//todo send the email;
 		}
 		if ($type == "reset")
 		{
 			$to = $post['email'];
 			$subject = 'MkMeMgc Password Reset';
+			$headers = "MIME-Version: 1.0\r\n";
+			$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
 			$message = "
 				Reset Password: <br/>
-				<form action='admin-verif.php' method='POST'>
-					<input type='text' name='passwdnw' placeholder='New password'>
-					<input type='text' name='passwdre' placeholder='Retype password'>
+				<form action='http://127.0.0.1:8080/admin-verif.php' method='POST' target='_blank'>
+					<label for='passwdnw'>New Password</label>
+					<input type='text' name='passwdnw' placeholder='New password'><br/>
+					<label for='passwdre'>Retype Password</label>
+					<input type='text' name='passwdre' placeholder='Retype password'><br/>
 					<input type='hidden' name='usr-namenw' value='" . $post['login'] . "' >
 					<input type='submit' name='usr-pass-reset' value='Reset'>
 				</form>
 			";
-			mail($to, $subject, $message);
+			mail($to, $subject, $message, $headers);
 		}
 
 		if ($type == "comment")
@@ -102,8 +99,10 @@
 
 			$to = $user['email'];
 			$subject = "MkMeMgc Comment Notification";
+			$headers = "MIME-Version: 1.0\r\n";
+			$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
 			$message = "Hi " . $user['login'] . ", your image just received a comment: [ " . $post['usr-log'] . " ] - " . $post['comment'] . ".";
-			mail($to, $subject, $message);
+			mail($to, $subject, $message, $headers);
 		}
 	}
 
@@ -165,5 +164,13 @@
 		return (false);
 	}
 
-?>
+	if (isset($_GET['check-usr']))
+	{
+		$user = getUser($_GET['check-usr']);
+		if (isset($user))
+			echo "true";
+		else
+			echo $_GET['check-usr'];
+	}
+
 ?>

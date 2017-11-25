@@ -36,7 +36,7 @@
 					($page == "2" && ($img_count > 2 && $img_count < 6)) ||
 					($page == "3" && $img_count > 5))
 				{
-					$imgs .= '<td><a href="image.php?url=' . $row['url'] . '&name=' . $row['name'] . '"><img src="../imgs/' . $row['url'] . '" alt="' . $row['name'] . '" name="' . $row['name'] . '" width="256" height="192"></a></td>';
+					$imgs .= '<td><a href="image.php?url=' . $row['url'] . '&name=' . $row['name'] . '"><img src="' . $row['url'] . '" alt="' . $row['name'] . '" name="' . $row['name'] . '" width="256" height="192"></a></td>';
 				}
 				
 				if ($img_count % 9 == 0 && $img_count != 0)

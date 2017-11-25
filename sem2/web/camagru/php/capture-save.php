@@ -7,7 +7,7 @@
 	$img = str_replace(' ', '+', $img);
 	$data = base64_decode($img);
 	$file_name = time().uniqid(rand()) . ".jpeg";
-	$url = "../imgs/usr/" . $file_name;
+	$url = "imgs/usr/" . $file_name;
 
 	$success = file_put_contents("temp.png", $data);
 

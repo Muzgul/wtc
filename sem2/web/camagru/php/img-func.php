@@ -4,7 +4,7 @@
 
 	function showInfo($name)
 	{
-		$arr = unserialize(file_get_contents("../../comments/" . $name . ".txt"));
+		$arr = unserialize(file_get_contents("../comments/" . $name . ".txt"));
 		$likes = 0;
 		$comments = "";
 		foreach ($arr['comments'] as $key => $value) {
@@ -45,16 +45,16 @@
 	function addComment($name, $comment)
 	{
 		$usr = $_SESSION['usr-log'];
-		$arr = unserialize(file_get_contents("../../comments/" . $name . ".txt"));
+		$arr = unserialize(file_get_contents("../comments/" . $name . ".txt"));
 		array_push($arr['comments'], "[ " . $usr . " ] - " . $comment);
-		file_put_contents("../../comments/" . $name . ".txt", serialize($arr));
+		file_put_contents("../comments/" . $name . ".txt", serialize($arr));
 
 		$img = getImg($name);
 
 		$img['usr-log'] = $usr;
 		$img['comment'] = $comment;
 
-		echo sendEmail($img, "comment");
+		sendEmail($img, "comment");
 
 		return (showInfo($name));
 	}
@@ -62,13 +62,13 @@
 	function addLike($name)
 	{
 		$usr = $_SESSION['usr-log'];
-		$arr = unserialize(file_get_contents("../../comments/" . $name . ".txt"));
+		$arr = unserialize(file_get_contents("../comments/" . $name . ".txt"));
 		foreach ($arr['likes'] as $key => $value) {
 			if ($value == $usr)
 				return (showInfo($name));
 		}
 		array_push($arr['likes'], $usr);
-		file_put_contents("../../comments/" . $name . ".txt", serialize($arr));
+		file_put_contents("../comments/" . $name . ".txt", serialize($arr));
 		return (showInfo($name));
 	}
 
@@ -91,8 +91,8 @@
 			echo "[ deleteImg Error : " . $exception->getMessage() . "]<br/>";
 		}
 
-		unlink("../../imgs/usr/" . $name);
-		unlink("../../comments/" . $name . ".txt");
+		unlink("../imgs/usr/" . $name);
+		unlink("../comments/" . $name . ".txt");
 
 		return ("Image deleted. <a href='index.php'>Home</a>");
 	}

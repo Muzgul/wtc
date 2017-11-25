@@ -1,13 +1,6 @@
 <?php session_start();
 
-	if (isset($_SESSION['active-usr']) && $_SESSION['active-usr'] != "guest")
-	{
-		header("Location: profile.php");
-	}
-	else
-	{
-		$_SESSION['active-usr'] = "guest";
-	}
+
 
 ?>
 
@@ -38,7 +31,7 @@
 						<form id="reg-form">
 							<div class="form-group">
 								<label for="reg-usrname">Username</label>
-								<input type="text" name="reg-usrname" class="form-control" placeholder="Username" required>
+								<input type="text" id="reg-usrname" name="reg-usrname" class="form-control" placeholder="Username" required>
 							</div>
 							<div class="form-group">
 								<label for="reg-passwd1">Password</label>
@@ -79,4 +72,4 @@
 		</div>
 	</div>
 </div>
-<script type="text/javascript" src="script.js"></script>
+<script type="text/javascript" src="js/script.js"></script>

@@ -34,7 +34,7 @@
 					$response = "Welcome " . $user['login'] . ", please verify your account.";
 					$button = "Email sent";
 					$link = "#";
-					echo sendEmail($_POST, "verif");
+					sendEmail($_POST, "verif");
 				}
 			}
 			else
@@ -63,7 +63,7 @@
 				$response = "Welcome " . $user['login'] . ", please verify your account.";
 				$button = "Resend email";
 				$link = "#";
-				echo sendEmail($_POST, "verif");
+				sendEmail($_POST, "verif");
 			}
 			else
 			{
