@@ -34,7 +34,7 @@ int		line_end(t_list **head)
 	return (0);
 }
 
-void	read_to_list(const int fd, t_list **head)
+size_t	read_to_list(const int fd, t_list **head)
 {
 	//printf("read_to_list\n");
 	char		buff[BUFF_SIZE + 1];
@@ -53,6 +53,8 @@ void	read_to_list(const int fd, t_list **head)
 	else
 	{
 		readVal = read(fd, buff, BUFF_SIZE);
+		if (readVal == 0)
+			return (1);
 		buff[BUFF_SIZE] = '\0';
 	}
 	
@@ -76,7 +78,8 @@ void	read_to_list(const int fd, t_list **head)
 			new->content = NULL;
 	}
 	ft_lstadd(head, new);
-	//printf("New: %s\n", new->content);
+	printf("New: %s\n", new->content);
+	return (0);
 }
 
 int		count_size(t_list **head)
@@ -116,17 +119,19 @@ void	make_line(char **line, t_list **head)
 		*line = ft_strjoin(*line, tempStr);
 		current = current->next;
 	}
+	(*line)[count_size(head) - 1] = '\0';
 }
 
 int		get_next_line(const int fd, char **line)
 {
-	printf("");
 	t_list *head;
+	int		tempInt;
 
 	head = NULL;
-	while (line_end(&head) == 0)
+	tempInt = 0;
+	while (line_end(&head) == 0 && tempInt == 0)
 	{
-		read_to_list(fd, &head);
+		tempInt = read_to_list(fd, &head);
 	}
 	if (count_size(&head) == 0)
 		return (0);
