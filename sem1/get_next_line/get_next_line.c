@@ -39,7 +39,6 @@ size_t	read_to_list(const int fd, t_list **head)
 	//printf("read_to_list\n");
 	char		buff[BUFF_SIZE + 1];
 	static char	*temp = NULL;
-	t_list		*new;
 	int			readVal;
 
 	readVal = -1;
@@ -119,7 +118,7 @@ void	make_line(char **line, t_list **head)
 		*line = ft_strjoin(*line, tempStr);
 		current = current->next;
 	}
-	(*line)[count_size(head) - 1] = '\0';
+	(*line)[count_size(head)] = '\0';
 }
 
 int		get_next_line(const int fd, char **line)

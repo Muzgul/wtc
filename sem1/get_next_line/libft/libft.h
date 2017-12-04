@@ -85,7 +85,7 @@ char		*ft_strnew(size_t size);
 char		*ft_strnstr(const char *big, const char *little, size_t len);
 char		*ft_strrchr(const char *s, int c);
 char		**ft_strsplit(const char *s, char c);
-size_t		ft_strsearch(const char *str, char c);
+int			ft_strsearch(const char *str, char c);
 int			ft_strspaces(char *s);
 char		*ft_strstr(const char *big, const char *little);
 char		*ft_strsub(char const *s, unsigned int start, size_t len);
