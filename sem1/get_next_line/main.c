@@ -22,6 +22,7 @@ int     main()
 	{
 		ft_putendl("LINE");
 		ft_putendl(line);
+		printf("Strcmp: %i\n", ft_strcmp(line, "1234567890abcde"));
 		free (line);
 	}
 	return (1);
