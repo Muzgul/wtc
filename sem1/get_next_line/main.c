@@ -11,38 +11,25 @@ int     main()
 	// char 	*line;
 	// int		out;
 	// int		p[2];
-	// int		fd;
+	// char 	*str;
 	// int		gnl_ret;
 
+	// str = (char *)malloc(1000 * 1000);
+	// *str = '\0';
+	// strcat(str, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur in leo dignissim, gravida leo id, imperdiet urna. Aliquam magna nunc, maximus quis eleifend et, scelerisque non dolor. Suspendisse augue augue, tempus");
+	// strcat(str, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur in leo dignissim, gravida leo id, imperdiet urna. Aliquam magna nunc, maximus quis eleifend et, scelerisque non dolor. Suspendisse augue augue, tempus");
+	// strcat(str, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur in leo dignissim, gravida leo id, imperdiet urna. Aliquam magna nunc, maximus quis eleifend et, scelerisque non dolor. Suspendisse augue augue, tempus");
 	// out = dup(1);
 	// pipe(p);
+	// dup2(p[1], 1);
 
-	// fd = 1;
-	// dup2(p[1], fd);
-	// write(fd, "abc\n\n", 5);
+	// write(1, str, strlen(str));
 	// close(p[1]);
-	// dup2(out, fd);
-
-	// /* Read abc and new line */
+	// dup2(out, 1);
 	// gnl_ret = get_next_line(p[0], &line);
-	// printf("%d\n", gnl_ret);
-	// printf("%d\n", strcmp(line, "abc"));
+	// printf("strcmp: %d\n", strcmp(line, str));
+	// printf("ngl_ret: %d\n", gnl_ret);
 	// printf("%s\n", line);
-
-	//  Read new line 
-	// gnl_ret = get_next_line(p[0], &line);
-	// printf("%d\n", gnl_ret);
-	// printf(":%s:\n", line);
-
-	// /* Read again, but meet EOF */
-	// gnl_ret = get_next_line(p[0], &line);
-	// printf("%d\n", gnl_ret);
-	// printf(":%s:\n", line);
-
-	// /* Let's do it once again */
-	// gnl_ret = get_next_line(p[0], &line);
-	// printf("%d\n", gnl_ret);
-	// printf(":%s:\n", line);
 	int     fd;
 	char    *line;
 	int		i;
@@ -55,8 +42,7 @@ int     main()
 	}
 	while ((i = get_next_line((int const)fd, &line)) > 0)
 	{
-		ft_putendl("LINE");
-		ft_putendl(line);
+		printf("\t** Line ** :%s:\n", line);
 		printf("Strcmp: %i\n", ft_strcmp(line, "1234567890abcde"));
 		free (line);
 	}

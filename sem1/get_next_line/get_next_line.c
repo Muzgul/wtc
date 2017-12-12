@@ -23,7 +23,7 @@ int		make_line(char **line, t_list **head)
 //printf("make_line\n");
 	t_list	*current;
 	char 	*tempStr;
-	size_t	tempInt;
+	int		tempInt;
 
 	if (head == NULL)
 		return (-1);
@@ -31,14 +31,18 @@ int		make_line(char **line, t_list **head)
 	current = *head;
 	while (current != NULL && current->content != NULL)
 	{
-		if ((tempInt = ft_strsearch(current->content, '\n')) != -1)
-		{
-			tempStr = ft_strnew(tempInt);
-			tempStr = ft_strncpy(tempStr, current->content, tempInt);
-		}
-		else
-			tempStr = current->content;
+// 		tempInt = ft_strsearch(current->content, '\n');
+// printf("TempInt: %d\n", tempInt);
+// 		if (tempInt != -1)
+// 		{
+// 			tempStr = ft_strnew(tempInt);
+// 			tempStr = ft_strncpy(tempStr, current->content, tempInt);
+// 		}
+// 		else
+// 			tempStr = current->content;
 // printf("tempStr: %s\n", tempStr);
+		tempStr = ft_strnew(current->content_size);
+		tempStr = ft_strncpy(tempStr, current->content, current->content_size);
 		*line = ft_strjoin(*line, tempStr);
 		// if (tempStr != current->content && tempStr != NULL)
 		// 	free(tempStr);
@@ -86,19 +90,18 @@ int		read_to_list(const int fd, t_list **head)
 	{
 		readStatus = read(fd, buff, BUFF_SIZE);
 //printf("post read- readStatus: %i\n", readStatus);
+		if (readStatus <= 0)
+			return (readStatus);
 		buff[readStatus] = '\0';
 		ft_strcpy(temp, (char *)&buff);
 	}
-
-	if (readStatus <= 0)
-		return (readStatus);
 	
 	tempInt = ft_strsearch(temp, '\n');
 // printf("Temp: %s\nTempInt: %i\n", temp, tempInt);
 	if (tempInt >= 0)
 	{
 		if (tempInt > 0)
-			new = ft_lstnew(temp, tempInt + 1);
+			new = ft_lstnew(temp, tempInt);
 		if (tempInt != (BUFF_SIZE - 1) && tempInt != 0)
 		{
 			save = ft_strnew(BUFF_SIZE - tempInt);
@@ -107,8 +110,25 @@ int		read_to_list(const int fd, t_list **head)
 		if (tempInt == 0)
 		{
 			save = ft_strnew(BUFF_SIZE - 1);
-			ft_strcpy(save, &temp[1]);
+
+			if (count_size(head) == 0)
+			{
+				if (temp[0] == temp[1])
+				{
+					ft_strcpy(save, &temp[1]);
+					return (-3);
+				}
+				else
+				{
+					ft_strcpy(save, &temp[1]);
+					return (1);
+				}
+			}
+			ft_strcpy(save, &temp[0]);
 			return (-2);
+			//if head has content, print
+			//if head empty, and one newline: read again
+				//if two new lines, return 3
 		}
 		readStatus = -2;
 // printf("Returning -2\n");
@@ -119,6 +139,7 @@ int		read_to_list(const int fd, t_list **head)
 		//new line not found
 	if (temp != NULL)
 		free(temp);
+printf("NEW: %s\n", new->content);
 	ft_lstadd(head, new);
 	return (readStatus);
 }
@@ -130,6 +151,8 @@ int		get_next_line(const int fd, char **line)
 	int		makeStatus;
 	t_list	*head;
 
+	if (line == NULL)
+		return (-1);
 	readStatus = 1;
 	head = NULL;
 	while (readStatus > 0)
@@ -139,6 +162,12 @@ int		get_next_line(const int fd, char **line)
 	makeStatus = make_line(line, &head);
 printf("Makestatus: %i\n", makeStatus);
 printf("ReadStatus: %i\n", readStatus);
+printf("Return 1\n");
+	if (readStatus == -3)
+	{
+		(*line) = ft_strnew(1);
+		return (1);
+	}
 printf("Return 0\n");
 	if (readStatus == 0 && makeStatus == 0)
 		return (0);
