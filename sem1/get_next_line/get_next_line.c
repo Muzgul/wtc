@@ -2,17 +2,31 @@
 #include <stdio.h>
 #include "get_next_line.h"
 
-int		count_size(t_list **head)
+int		count_size(t_list **head, int clear)
 {
 	t_list	*current;
+	t_list	*prev;
 	int		count;
 
-	current = *head;
 	count = 0;
-	while (current != NULL)
+	while ((current = *head) != NULL && clear != 2)
 	{
+		prev = current;
+		while (current->next != NULL && (prev = current) != NULL)
+		{
+			count += current->content_size;
+			current = current->next;
+		}
 		count += current->content_size;
-		current = current->next;
+		if (clear == 1)
+		{
+			prev->next = NULL;
+			if (current == prev)
+				*head = NULL;
+			free(current);
+		}
+		else
+			clear = 2;
 	}
 	return (count);
 }
@@ -20,43 +34,56 @@ int		count_size(t_list **head)
 int		make_line(char **line, t_list **head)
 {
 	t_list	*current;
-	t_list	*prev;
-	char 	*tempStr;
-	char	*tempLine;
-	int		tempInt;
+	char	*tempstr;
+	char	*templine;
+	int		tempint;
 
 	if (head == NULL)
 		return (-1);
-	*line = ft_strnew(count_size(head));
+	tempint = count_size(head, 0);
+	*line = ft_strnew(tempint);
 	current = *head;
 	while (current != NULL && current->content != NULL)
 	{
-		tempStr = ft_strnew(current->content_size);
-		tempStr = ft_strncpy(tempStr, current->content, current->content_size);
-		tempLine = *line;
-		*line = ft_strjoin(tempLine, tempStr);
-		ft_strdel(&tempLine);
-		ft_strdel(&tempStr);
+		tempstr = ft_strnew(current->content_size);
+		tempstr = ft_strncpy(tempstr, current->content, current->content_size);
+		templine = *line;
+		*line = ft_strjoin(templine, tempstr);
+		ft_strdel(&templine);
+		ft_strdel(&tempstr);
 		current = current->next;
 	}
-	tempInt = count_size(head);
-	(*line)[tempInt] = '\0';
-	while (*head != NULL)
+	count_size(head, 1);
+	return (tempint);
+}
+
+int		manage_temp(t_list **head, char *temp, char **save, int readstatus)
+{
+	t_list	*new;
+	int		tempint;
+
+	tempint = ft_strsearch(temp, '\n');
+	if (tempint >= 0)
 	{
-		current = *head;
-		prev = current;
-		while (current->next != NULL)
+		if (tempint > 0)
+			new = ft_lstnew(temp, tempint);
+		readstatus = -2;
+		if (tempint == 0 && count_size(head, 0) == 0)
 		{
-			prev = current;
-			current = current->next;
+			if (temp[0] == temp[1])
+				readstatus = -3;
+			else
+				readstatus = 1;
+			(*save) = ft_strdup(&temp[1]);
 		}
-		if (current == prev)
-			*head = NULL;
-		else
-			prev->next = NULL;
-		free(current);
+		else if (tempint != (BUFF_SIZE - 1))
+			(*save) = ft_strdup(&temp[tempint]);
 	}
-	return (tempInt);
+	if (tempint == -1)
+		new = ft_lstnew(temp, ft_strlen(temp));
+	if (tempint != 0)
+		ft_lstadd(head, new);
+	return (readstatus);
 }
 
 int		read_to_list(const int fd, t_list **head)
@@ -64,92 +91,51 @@ int		read_to_list(const int fd, t_list **head)
 	static char	*save = NULL;
 	char		*temp;
 	char		buff[BUFF_SIZE + 1];
-	int 		readStatus;
-	int			tempInt;
-	t_list		*new;
+	int			readstatus;
 
-	temp = ft_strnew(BUFF_SIZE + 1);
-	readStatus = 1;
+	readstatus = 1;
 	if (save != NULL && ft_strlen(save) > 0)
 	{
-		ft_strcpy(temp, save);
+		temp = ft_strdup(save);
 		ft_strdel(&save);
 		save = NULL;
 	}
 	else
 	{
-		readStatus = read(fd, buff, BUFF_SIZE);
-		if (readStatus <= 0)
-		{
-			return (readStatus);
-		}
-		buff[readStatus] = '\0';
-		ft_strcpy(temp, (char *)&buff);
+		if ((readstatus = read(fd, buff, BUFF_SIZE)) <= 0)
+			return (readstatus);
+		buff[readstatus] = '\0';
+		temp = ft_strdup((char *)&buff);
 	}
-	
-	tempInt = ft_strsearch(temp, '\n');
-	if (tempInt >= 0)
-	{
-		if (tempInt > 0)
-			new = ft_lstnew(temp, tempInt);
-		if (tempInt != (BUFF_SIZE - 1) && tempInt != 0)
-		{
-			save = ft_strnew(BUFF_SIZE - tempInt);
-			ft_strcpy(save, &temp[tempInt]);
-		}
-		if (tempInt == 0)
-		{
-			save = ft_strnew(BUFF_SIZE - 1);
-
-			if (count_size(head) == 0)
-			{
-				if (temp[0] == temp[1])
-				{
-					ft_strcpy(save, &temp[1]);
-					return (-3);
-				}
-				else
-				{
-					ft_strcpy(save, &temp[1]);
-					return (1);
-				}
-			}
-			ft_strcpy(save, &temp[0]);
-			return (-2);
-		}
-		readStatus = -2;
-	}
-	if (tempInt == -1)
-		new = ft_lstnew(temp, ft_strlen(temp));
+	readstatus = manage_temp(head, temp, &save, readstatus);
 	if (temp != NULL)
 		ft_strdel(&temp);
-	ft_lstadd(head, new);
-	return (readStatus);
+	return (readstatus);
 }
 
 int		get_next_line(const int fd, char **line)
 {
-	int		readStatus;
-	int		makeStatus;
+	int		readstatus;
+	int		makestatus;
 	t_list	*head;
 
 	if (line == NULL)
 		return (-1);
-	readStatus = 1;
+	readstatus = 1;
 	head = NULL;
-	while (readStatus > 0)
+	while (readstatus > 0)
 	{
-		readStatus = read_to_list(fd, &head);
+		readstatus = read_to_list(fd, &head);
 	}
-	makeStatus = make_line(line, &head);
-	if (readStatus == -3)
+	makestatus = make_line(line, &head);
+	if (readstatus == -3)
 	{
 		(*line) = ft_strnew(1);
 		return (1);
 	}
-	if (readStatus == 0 && makeStatus == 0)
+	if (readstatus == 0 && makestatus == 0)
 		return (0);
-	if (readStatus == -2 || makeStatus > 0)
+	if (readstatus == -2 || makestatus > 0)
 		return (1);
 	return (-1);
 }
