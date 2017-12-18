@@ -1,31 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*   ft_lstclr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmacdona <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/07/24 14:43:31 by mmacdona          #+#    #+#             */
-/*   Updated: 2017/10/01 00:32:53 by mmacdona         ###   ########.fr       */
+/*   Created: 2017/12/16 17:26:01 by mmacdona          #+#    #+#             */
+/*   Updated: 2017/12/16 17:26:06 by mmacdona         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnstr(const char *big, char *little, size_t len)
+void	ft_lstclr(t_list **head)
 {
-	size_t i;
+	t_list	*current;
+	t_list	*prev;
 
-	if (*little == '\0')
-		return ((char*)big);
-	i = 0;
-	while (*big != '\0' && i < len)
+	current = *head;
+	while (*head != NULL)
 	{
-		if (ft_memcmp(big, little, ft_strlen(little)) == 0 &&
-			(i + ft_strlen(little)) <= len)
-			return ((char*)big);
-		big++;
-		i++;
+		current = *head;
+		prev = current;
+		while (current->next != NULL)
+		{
+			prev = current;
+			current = current->next;
+		}
+		if (current == prev)
+			*head = NULL;
+		prev->next = NULL;
+		if (current->content != NULL)
+			ft_memdel(&current->content);
+		ft_memdel((void*)&current);
 	}
-	return (NULL);
 }

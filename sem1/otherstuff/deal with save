@@ -1,0 +1,190 @@
+******** WORKING *********
+int		manage_temp(t_list **head, char *temp, char **save, int readstatus)
+{
+	t_list	*new;
+	int		tempint;
+
+	tempint = ft_strsearch(temp, '\n');
+	if (tempint >= 0)
+	{
+		if (tempint > 0)
+			new = ft_lstnew(temp, tempint);
+		readstatus = -2;
+		if (tempint == 0 && count_size(head, 0) == 0)
+		{
+			if (temp[0] == temp[1])
+				readstatus = -3;
+			else
+				readstatus = 1;
+			(*save) = ft_strdup(&temp[1]);
+		}
+		else if (tempint != (BUFF_SIZE - 1))
+			(*save) = ft_strdup(&temp[tempint]);
+	}
+	if (tempint == -1)
+		new = ft_lstnew(temp, ft_strlen(temp));
+	if (tempint != 0)
+		ft_lstadd(head, new);
+	return (readstatus);
+}
+
+int		read_to_list(const int fd, t_list **head)
+{
+	static char	*save = NULL;
+	char		*temp;
+	char		buff[BUFF_SIZE + 1];
+	int			readstatus;
+
+	readstatus = 1;
+	if (save != NULL && ft_strlen(save) > 0)
+	{
+		temp = ft_strdup(save);
+		ft_strdel(&save);
+		save = NULL;
+	}
+	else
+	{
+		if ((readstatus = read(fd, buff, BUFF_SIZE)) <= 0)
+			return (readstatus);
+		buff[readstatus] = '\0';
+		temp = ft_strdup((char *)&buff);
+	}
+	readstatus = manage_temp(head, temp, &save, readstatus);
+	if (temp != NULL)
+		ft_strdel(&temp);
+	return (readstatus);
+}
+***********************
+
+	t_list	*new;
+	int		tempint;
+
+	tempint = ft_strsearch(temp, '\n');
+	if (tempint > 0)
+	{
+		new = ft_lstnew(temp, tempint);
+		if (tempint != (BUFF_SIZE - 1) && tempint != 0)
+			(*save) = ft_strdup(&temp[tempint]);
+		readstatus = -2;
+	}
+	if (tempint == 0)
+	{
+		readstatus = -2;
+		if (count_size(head, 0) == 0)
+		{
+			if (temp[0] == temp[1])
+				readstatus = -3;
+			else
+				readstatus = 1;
+			(*save) = ft_strdup(&temp[1]);
+		}
+		else
+			(*save) = ft_strdup(&temp[0]);
+	}
+	if (tempint == -1)
+		new = ft_lstnew(temp, ft_strlen(temp));
+	if (tempint != 0)
+		ft_lstadd(head, new);
+	return (readstatus);
+
+{
+	t_list	*new;
+	int		tempint;
+
+	tempint = ft_strsearch(temp, '\n');
+	if (tempint >= 0)
+	{
+		if (tempint > 0)
+			new = ft_lstnew(temp, tempint);
+		readstatus = -2;
+		if (tempint == 0 && count_size(head, 0) == 0)
+		{
+			if (temp[0] == temp[1])
+				readstatus = -3;
+			else
+				readstatus = 1;
+			(*save) = ft_strdup(&temp[1]);
+		}
+		else if (tempint != (BUFF_SIZE - 1))
+			(*save) = ft_strdup(&temp[tempint]);
+	}
+	if (tempint == -1)
+		new = ft_lstnew(temp, ft_strlen(temp));
+	if (tempint != 0)
+		ft_lstadd(head, new);
+	return (readstatus);
+}
+
+{
+	t_list **new;
+	int tempint;
+	static char *save = NULL;
+	char *temp;
+	int readstatus;
+
+	if (save != NULL)
+	{
+		temp = ft_strdup(save);
+		ft_strdel(save);
+		save = NULL;
+	}
+	else
+	{
+		readstatus = read(fd, buff, BUFF_SIZE);
+		if (readstatus <= 0)
+			return (readstatus);
+		temp = ft_strnew(readstatus);
+		ft_strncpy(temp, buff, readstatus);
+	}
+	tempint = ft_strsearch(temp, '\n');
+	if (tempint == 0)
+		save = ft_strdup(&temp[1]);
+	if (tempint == (ft_strlen(temp) - 1))
+		save = ft_strdup("\n");
+	if (tempint != 0)
+	{
+		ft_strdel(&temp[tempint + 1]);
+		temp[tempint] = '\0'
+		new = ft_lstnew(temp, tempint);
+		ft_lstadd(new);
+	}
+	return (tempint);
+}
+
+
+
+
+
+
+read while no new line found
+{
+	if new line
+		if at 0
+			save anything after new line
+			print
+		if > 0
+			store anything before new line
+			save anything after new line
+			print
+		if at end of line
+			store anything before new line
+			print
+		if -1
+			store everything
+
+		save everything after new line
+			if == 0
+			if > 0
+		print
+			if == 0
+			if > 0
+			if at end of line
+		store anything before new line
+			if > 0
+			if at end of line
+		store line
+			if == -1
+
+
+
+}
