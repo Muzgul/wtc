@@ -1,4 +1,3 @@
-seed = 7514
-./TRUMP_FILLER won
-Score:
-161AGAINST167
+seed = 9618
+O: error on input
+./MIMIC_FILLER.filler: Segfault at 0
