@@ -22,4 +22,6 @@ $( document ).ready(function() {
 			$("#panProfile").load("php/profile.php");
 		});
 	});
+
+	
 });

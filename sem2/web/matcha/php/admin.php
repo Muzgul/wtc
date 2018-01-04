@@ -9,7 +9,7 @@
 		<div class="row">
 			<div class="jumbotron">
 				<h1>Welcome to Matcha!</h1>
-				<p>Please sign up below to begin your search. We promise to not give away any of your private information. No one seems to want it xD</p>
+				<p>Please sign up below to begin your search. We promise to not give away any of your private information. No one seems to want it anyway xD</p>
 			</div>
 		</div>
 		<div class="row">
