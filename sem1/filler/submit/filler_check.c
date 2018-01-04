@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   filler_check.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmacdona <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/01/03 11:33:49 by mmacdona          #+#    #+#             */
+/*   Updated: 2018/01/03 11:33:52 by mmacdona         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "filler.h"
 
 int		valid_place(char **grid, int *place, int player, int overlap)
@@ -38,7 +50,8 @@ int		valid_placement(char **grid, char **piece, int *dest, int player)
 		{
 			if (piece[m][n] == '*')
 			{
-				coord = get_coord(m + dest[0], n + dest[1]);
+				coord = get_coord(m + dest[0] - y_offset(piece),
+									n + dest[1] - x_offset(piece));
 				overlap = valid_place(grid, coord, player, overlap);
 				if (overlap == -1)
 					return (-1);
@@ -106,4 +119,16 @@ int		distance_check(char **piece, int pos_y, int pos_x, int *dest)
 		y++;
 	}
 	return (distance);
+}
+
+int		distance_compare(char **piece, int *point_a, int *point_b, int *dest)
+{
+	int dist_a;
+	int dist_b;
+
+	if (point_a == NULL)
+		return (1);
+	dist_a = distance_check(piece, point_a[0], point_a[1], dest);
+	dist_b = distance_check(piece, point_b[0], point_b[1], dest);
+	return (dist_a - dist_b);
 }

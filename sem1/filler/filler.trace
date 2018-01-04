@@ -1,3 +1,4 @@
-seed = 9618
-O: error on input
-./MIMIC_FILLER.filler: Segfault at 0
+seed = 3276
+submit/filler won
+Score:
+95AGAINST232

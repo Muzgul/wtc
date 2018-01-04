@@ -1,4 +1,4 @@
-NAME = MIMIC_FILLER.filler
+NAME = filler
 FLAGS = gcc -Wall -Werror -Wextra
 SOURCES = filler.c filler_check.c filler_grid.c filler_misc.c
 

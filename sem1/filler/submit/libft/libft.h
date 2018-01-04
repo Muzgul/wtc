@@ -18,7 +18,6 @@
 # include <unistd.h>
 # include <stdarg.h>
 
-
 typedef struct		s_list
 {
 	void			*content;
