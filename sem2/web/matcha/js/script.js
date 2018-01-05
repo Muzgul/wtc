@@ -3,7 +3,16 @@ $( document ).ready(function() {
 	//INFORMATION LOAD
 
 	$('#btnProfile').click(function () {
+
 		$("#panProfile").load("php/profile.php");
+		$.post( "php/db_func.php", { get_user: "F"})
+  			.done(function( data ) {
+    			alert( "Data Loaded: " + data );
+    			var arr = jQuery.parseJSON(data);
+    			$("#usr-first-name").val(arr['first-name']);
+    			$("#usr-last-name").val(arr['last-name']);
+    			$("#usr-name").val(arr['usr-name']);
+  		});
 	});
 
 	//REGISTER FORM

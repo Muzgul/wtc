@@ -21,7 +21,12 @@
 		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		$sql = "CREATE TABLE `tbladmin` (
 				`id` INT(8) PRIMARY KEY AUTO_INCREMENT,
-				`login` VARCHAR(32) NOT NULL, 
+				`usrname` VARCHAR(32) NOT NULL,
+				`firstname` VARCHAR(32),
+				`lastnight` VARCHAR(32),
+				`gender` VARCHAR(32),
+				`sexpref` VARCHAR(256),
+				`bio` VARCHAR(128),
 				`email` VARCHAR(32) NOT NULL,
 				`passwd` VARCHAR(256) NOT NULL,
 				`verif` INT(2) DEFAULT '0')";

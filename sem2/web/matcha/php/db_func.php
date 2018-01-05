@@ -173,4 +173,7 @@
 			echo $_GET['check-usr'];
 	}
 
+	if (isset($_POST['get_user']))
+		echo json_encode(getUser($_POST['get_user']));
+
 ?>
