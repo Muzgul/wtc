@@ -1,0 +1,11 @@
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/Tolsadus/42homebrewfix/master/install.sh)"
+
+\curl -L https://get.rvm.io | bash -s stable
+
+source /goinfre/mmacdona/.rvm/scripts/rvm
+
+rvm use ruby --install --default
+
+/goinfre/mmacdona/Ruby
+
+gem install rails --no-ri --no-rdoc

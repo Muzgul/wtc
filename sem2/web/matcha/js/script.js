@@ -9,9 +9,13 @@ $( document ).ready(function() {
   			.done(function( data ) {
     			alert( "Data Loaded: " + data );
     			var arr = jQuery.parseJSON(data);
-    			$("#usr-first-name").val(arr['first-name']);
-    			$("#usr-last-name").val(arr['last-name']);
-    			$("#usr-name").val(arr['usr-name']);
+    			$("#usr-first-name").val(arr['firstname']);
+    			$("#usr-last-name").val(arr['lastname']);
+    			$("#usr-name").val(arr['usrname']);
+    			$("#usr-gender").val(arr['gender']);
+    			$("#usr-sex-pref").val(arr['sexpref']);
+    			$("#usr-bio").val(arr['bio']);
+    			$("#usr-email").val(arr['email']);
   		});
 	});
 

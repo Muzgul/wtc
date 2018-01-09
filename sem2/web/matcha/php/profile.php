@@ -47,7 +47,7 @@
 					</div>
 					<div class="form-group">
 						<label for="usr-sex-pref">Bio</label>
-						<textarea name="usr-sex-pref" id="usr-sex-pref" class="form-control"></textarea>
+						<textarea name="usr-bio" id="usr-bio" class="form-control"></textarea>
 					</div>
 					<div class="form-group">
 						<label>Profile Picture</label>

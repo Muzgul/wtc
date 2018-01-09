@@ -11,7 +11,7 @@
 			// Error mode: exception
 			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			$sql = "SELECT * FROM `tbladmin`
-					WHERE `login` LIKE '" . $usr_name . "'";
+					WHERE `usrname` LIKE '" . $usr_name . "'";
 			foreach ($conn->query($sql)	as $row)
 			{
 				$conn = null;
@@ -35,12 +35,12 @@
 			$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
 			// Error mode: exception
 			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-			$passwd = hash("sha256", $post['usr-passwd']);
-			$sql = "INSERT INTO `tbladmin` (`login`, `email`, `passwd`)
-					VALUES ('" . $post['usr-name'] . "', '" . $post['usr-email'] . "', '"
+			$passwd = hash("sha256", $post['reg-passwd1']);
+			$sql = "INSERT INTO `tbladmin` (`usrname`, `email`, `passwd`)
+					VALUES ('" . $post['reg-usrname'] . "', '" . $post['reg-email'] . "', '"
 					. $passwd . "')";
 			$conn->exec($sql);
-			return (getUser($post['usr-name']));
+			return (getUser($post['reg-usrname']));
 		}
 		catch (PDOException $exception)
 		{

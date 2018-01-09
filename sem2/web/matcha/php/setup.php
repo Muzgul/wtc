@@ -23,7 +23,7 @@
 				`id` INT(8) PRIMARY KEY AUTO_INCREMENT,
 				`usrname` VARCHAR(32) NOT NULL,
 				`firstname` VARCHAR(32),
-				`lastnight` VARCHAR(32),
+				`lastname` VARCHAR(32),
 				`gender` VARCHAR(32),
 				`sexpref` VARCHAR(256),
 				`bio` VARCHAR(128),
