@@ -167,10 +167,10 @@
 	if (isset($_GET['check-usr']))
 	{
 		$user = getUser($_GET['check-usr']);
-		if (isset($user))
-			echo "true";
+		if ($user == NULL)
+			echo true;
 		else
-			echo $_GET['check-usr'];
+			echo false;
 	}
 
 	if (isset($_POST['get_user']))
