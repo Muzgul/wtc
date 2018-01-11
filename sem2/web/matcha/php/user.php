@@ -27,7 +27,5 @@
 	if (isset($_POST['get_user']))
 		echo json_encode(getUser($_POST['get_user']));
 	if (isset($_GET['check_usr']))
-	{
-		$user = getUser($_GET['check_usr'])
-	}
+		$user = getUser($_GET['check_usr']);
 ?>

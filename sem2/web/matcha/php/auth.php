@@ -11,10 +11,10 @@
 			{
 				//sendEmail($_POST, "verif");
 				$_SESSION['active-usr'] = $user['usrname'];
-				echo "true";
+				echo true;
 			}
 			else
-				echo "false";
+				echo false;
 		}
 		if (isset($_POST['login-usrname']))
 		{
@@ -23,10 +23,10 @@
 			if ($user != NULL && strcmp($passwd, $user['passwd']) == 0)
 			{
 				$_SESSION['active-usr'] = $user['usrname'];
-				echo "true";
+				echo true;
 			}
 			else
-				echo "false";
+				echo false;
 		}
 	}
 ?>

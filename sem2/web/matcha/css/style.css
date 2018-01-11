@@ -5,5 +5,11 @@
 }
 
 .image-list {
-	float: left;
+	display: inline-block;
+}
+
+.captureWind {
+    position: absolute;
+    top: 15px;
+    left: 15px;
 }

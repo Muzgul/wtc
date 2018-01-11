@@ -15,6 +15,7 @@
 ?>
 
 <div class="content">
+	<div id="popup"></div>
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-10 col-md-offset-1">
@@ -53,55 +54,51 @@
 						<label>Profile Picture</label>
 						<div class="container">
 							<div class="row">
-								<img src="../mampstack.png" width="120" height="120">
+								<img src="mampstack.png" width="130" height="130">
 							</div>
 						</div>
 						<small>Your other pictures.</small>
-						<div>
-							<div class="image-list">
-								<div class="row">
-									<img src="../mampstack.png" width="120" height="120">
+						<div class="container">
+							<div class="row">
+								<div class="image-list">
+										<img id="prof-pic-1" src="mampstack.png" width="130" height="130">
+									<div role="group">
+										<button id="ch-prof-pic-1" class="form-control">Change</button><button id="rm-prof-pic-1" class="form-control">Remove</button>
+									</div>
 								</div>
-								<div class="row" role="group">
-									<button>Change</button><button>Remove</button>
+								<div class="image-list">
+										<img id="prof-pic-2" src="mampstack.png" width="130" height="130">
+									<div >
+										<button id="ch-prof-pic-2" class="form-control">Change</button><button id="rm-prof-pic-2" class="form-control">Remove</button>
+									</div>
 								</div>
-							</div>
-							<div class="image-list">
-								<div class="row">
-									<img src="../mampstack.png" width="120" height="120">
+								<div class="image-list">
+										<img id="prof-pic-3" src="mampstack.png" width="130" height="130">
+									<div >
+										<button id="ch-prof-pic-3" class="form-control">Change</button><button id="rm-prof-pic-3" class="form-control">Remove</button>
+									</div>
 								</div>
-								<div class="row">
-									<button>Change</button><button>Remove</button>
+								<div class="image-list">
+										<img id="prof-pic-4" src="mampstack.png" width="130" height="130">
+									<div >
+										<button id="ch-prof-pic-4" class="form-control">Change</button><button id="rm-prof-pic-4" class="form-control">Remove</button>
+									</div>
 								</div>
-							</div>
-							<div class="image-list">
-								<div class="row">
-									<img src="../mampstack.png" width="120" height="120">
-								</div>
-								<div class="row">
-									<button>Change</button><button>Remove</button>
-								</div>
-							</div>
-							<div class="image-list">
-								<div class="row">
-									<img src="../mampstack.png" width="120" height="120">
-								</div>
-								<div class="row">
-									<button>Change</button><button>Remove</button>
-								</div>
-							</div>
-							<div class="image-list">
-								<div class="row">
-									<img src="../mampstack.png" width="120" height="120">
-								</div>
-								<div class="row">
-									<button>Change</button><button>Remove</button>
+								<div class="image-list">
+										<img id="prof-pic-5" src="mampstack.png" width="130" height="130">
+									<div >
+										<button id="ch-prof-pic-5" class="form-control">Change</button><button id="rm-prof-pic-5" class="form-control">Remove</button>
+									</div>
 								</div>
 							</div>
 						</div>						
+					</div>
+					<div class="form-group">
+						<input type="submit" name="Change" class="form-control">
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript" src="js/script.js"></script>
 </div>

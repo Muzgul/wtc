@@ -13,5 +13,6 @@
 	{
 		if ($_GET['end_session'] == "yes")
 			$_SESSION['active-usr'] = "guest";
+		header("Location: ../index.html");
 	}
 ?>
