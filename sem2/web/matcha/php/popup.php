@@ -1,16 +1,17 @@
 <?php session_start();
-	
+	if (isset($_GET['image_id']))
+		$img_id = $_GET['image_id'];
+	else
+		$img_id = -1;
 ?>
-
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Large modal</button>
 
 <div class="container">
 	<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 	  <div class="modal-dialog modal-lg modal-dialog-centered">
 	    <div class="modal-content">
 	    	<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<h5 class="modal-title" id="exampleModalLongTitle">Change your picture.</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close-popup">
 				  <span aria-hidden="true">&times;</span>
 				</button>
 			</div>
@@ -25,59 +26,15 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary">Save changes</button>
+				<button type="button" class="btn btn-primary" id="save-changes">Save changes</button>
 			</div>
 	    </div>
 	  </div>
-	  </div>
-	  <script type="text/javascript">
-	  		var video = document.getElementById('videoElement');
-
-			if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-			// Not adding `{ audio: true }` since we only want video now
-				navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
-					video.src = window.URL.createObjectURL(stream);
-					video.play();
-				});
-			}
-
-			function captureImg()
-			{
-				var canvas = document.getElementById('canvasElement');
-				var video = document.getElementById('videoElement');
-				canvas.getContext('2d').drawImage(video, 0, 0);
-
-			}
-			function uploadImg()
-			{
-				var canvas = document.getElementById("canvasElement");
-				var context = canvas.getContext('2d');
-				var file = document.getElementById('tempUplElement').files[0];
-				var reader = new FileReader();
-				reader.onloadend = function ()
-				{
-					console.log(reader.result);
-					var img = new Image();
-					img.src = reader.result;
-					img.onload = function ()
-					{
-						context.drawImage(img, 0 , 0);
-					};
-					canvas.style.visibility = "visible";
-				};
-				if (file){
-					reader.readAsDataURL(file);
-				}
-			}
-
-			function resetImg()
-			{
-				var canvas = $('#canvasElement')[0]; // or document.getElementById('canvas');
-				canvas.width = canvas.width;
-			}
-
-			document.getElementById('captureElement').addEventListener("click", captureImg);
-			document.getElementById('resetElement').addEventListener("click", resetImg);
-			document.getElementById('tempUplElement').addEventListener("change", uploadImg);
-	  </script>
+	</div>
+	<form id="form1">
+		<input type="hidden" id="popup-temp" value="0">
+		<input type="hidden" id="tempIdElement" name="tempIdElement" value="<?php echo $img_id; ?>">
+	  	<input type="hidden" id="tempImgElement" name="tempImgElement">
+	</form>
+	  <script type="text/javascript" src="js/script.js"></script>
 </div>

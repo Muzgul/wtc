@@ -15,7 +15,6 @@
 ?>
 
 <div class="content">
-	<div id="popup"></div>
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-10 col-md-offset-1">
@@ -51,13 +50,18 @@
 						<textarea name="usr-bio" id="usr-bio" class="form-control"></textarea>
 					</div>
 					<div class="form-group">
+						<input type="submit" name="Change" class="form-control">
+					</div>
+				</form>
+					<div class="form-group">
 						<label>Profile Picture</label>
 						<div class="container">
 							<div class="row">
-								<img src="mampstack.png" width="130" height="130">
+								<img id="prof-pic" src="mampstack.png" width="130" height="130">
 							</div>
 						</div>
 						<small>Your other pictures.</small>
+						<button type="button" class="btn btn-primary hidden" data-toggle="modal" data-target=".bd-example-modal-lg" id="modal-trigger">Large modal</button>
 						<div class="container">
 							<div class="row">
 								<div class="image-list">
@@ -93,12 +97,9 @@
 							</div>
 						</div>						
 					</div>
-					<div class="form-group">
-						<input type="submit" name="Change" class="form-control">
-					</div>
-				</form>
 			</div>
 		</div>
 	</div>
+	<div id="popup"></div>
 	<script type="text/javascript" src="js/script.js"></script>
 </div>
