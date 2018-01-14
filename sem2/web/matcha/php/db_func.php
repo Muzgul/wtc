@@ -36,9 +36,9 @@
 			// Error mode: exception
 			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			$passwd = hash("sha256", $post['reg-passwd1']);
-			$sql = "INSERT INTO `tbladmin` (`usrname`, `email`, `passwd`)
+			$sql = "INSERT INTO `tbladmin` (`usrname`, `email`, `passwd`, `profpic`)
 					VALUES ('" . $post['reg-usrname'] . "', '" . $post['reg-email'] . "', '"
-					. $passwd . "')";
+					. $passwd . "', 'imgs/usr/mampstack.png')";
 			$conn->exec($sql);
 			return (getUser($post['reg-usrname']));
 		}

@@ -1,5 +1,4 @@
 $( document ).ready(function() {
-
 	//INFORMATION LOAD
 	function load_profile(){
 		$("#panProfile").load("php/profile.php");
@@ -35,6 +34,11 @@ $( document ).ready(function() {
 
 		});
 	}
+
+	$("#btnExplore").click(function (){
+		$("#panExplore").load("php/explore.php");
+	});
+
 	$('#btnProfile').click(function () {
 
 		$.get("php/session.php", { session: "yes"})
@@ -69,6 +73,19 @@ $( document ).ready(function() {
 				$(":submit").removeAttr("disabled");
 			}
 		});
+	});
+
+	$("#modal-trigger").click(function (){
+		if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+	// Not adding `{ audio: true }` since we only want video now
+			alert("Camera Loading");
+			navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+				$("#videoElement").src = window.URL.createObjectURL(stream);
+				$("#videoElement").play();
+			});
+		}
+		else
+			alert("Problem loading camera.");
 	});
 
 	$("#ch-prof-pic-1").click(function (e){
@@ -287,15 +304,7 @@ $( document ).ready(function() {
 	    }
 	    document.getElementById('close-popup').click();
 	});
-
 });
 
-var video = document.getElementById('videoElement');
 
-if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-// Not adding `{ audio: true }` since we only want video now
-	navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
-		video.src = window.URL.createObjectURL(stream);
-		video.play();
-	});
-}
+
