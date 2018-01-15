@@ -9,8 +9,7 @@
 			$user = newUser($_POST);
 			if ($user != NULL)
 			{
-				//sendEmail($_POST, "verif");
-				$_SESSION['active-usr'] = $user['usrname'];
+				sendEmail($_POST, "verif");
 				echo true;
 			}
 			else
@@ -20,7 +19,7 @@
 		{
 			$user = getUser($_POST['login-usrname']);
 			$passwd = hash("sha256", $_POST['login-passwd1']);
-			if ($user != NULL && strcmp($passwd, $user['passwd']) == 0)
+			if ($user != NULL && strcmp($passwd, $user['passwd']) == 0 && $user['verif'] != 0)
 			{
 				$_SESSION['active-usr'] = $user['usrname'];
 				echo true;

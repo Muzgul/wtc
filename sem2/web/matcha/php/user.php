@@ -143,6 +143,30 @@
 		return (false);
 	}
 
+	function changeInfo($option)
+	{	
+		$usrname = $_SESSION['active-usr'];
+		$sql = "UPDATE `tbladmin`";
+		$sql .= "SET `" . $option['change_info'] . "` = '" . $option['info'] . "'
+					WHERE `usrname` LIKE '" . $usrname . "'";
+
+		$servername = "localhost";
+		$username = "root";
+		$password = "cullygme";
+		$dbname = "matcha";
+		try {
+			$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+			// Error mode: exception
+			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$conn->exec($sql);
+			return (true);
+		}
+		catch (PDOException $exception)
+		{
+		}
+		return (false);
+	}
+
 	if (isset($_POST['get_user']))
 		echo json_encode(getUser($_POST['get_user']));
 	if (isset($_POST['change_profpic']))
@@ -153,4 +177,6 @@
 		deleteImg($_POST['delete_img']);
 	if (isset($_POST['get_users']))
 		echo getUsers($_POST);
+	if (isset($_POST['change_info']))
+		changeInfo($_POST);
 ?>

@@ -27,6 +27,7 @@
 				`gender` VARCHAR(32),
 				`sexpref` VARCHAR(256),
 				`bio` VARCHAR(128),
+				`interests` VARCHAR(128),
 				`email` VARCHAR(32) NOT NULL,
 				`passwd` VARCHAR(256) NOT NULL,
 				`profpic` VARCHAR(256),

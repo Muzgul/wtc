@@ -36,5 +36,83 @@
 		<input type="hidden" id="tempIdElement" name="tempIdElement" value="<?php echo $img_id; ?>">
 	  	<input type="hidden" id="tempImgElement" name="tempImgElement">
 	</form>
-	  <script type="text/javascript" src="js/script.js"></script>
+	<script type="text/javascript">
+	var video = document.getElementById('videoElement');
+
+	navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
+	
+	if (navigator.getUserMedia)
+	{
+		navigator.getUserMedia({video: true}, handleVideo, videoError);
+	}
+	
+	function handleVideo(stream)
+	{
+		video.src = window.URL.createObjectURL(stream);
+	}
+	
+	function videoError(e)
+	{
+		alert("Video error!");
+	}
+
+	$(document).ready(function (){
+		$("#resetElement").click(function (){
+			var canvas = $("#canvasElement")[0];
+			canvas.width = canvas.width;
+			$("#popup-temp").val() = "0";
+		});
+		
+		$("#captureElement").click(function (){
+			var canvas = document.getElementById('canvasElement');
+			var video = document.getElementById('videoElement');
+			canvas.getContext('2d').drawImage(video, 0, 0);
+			document.getElementById("popup-temp").value = "1";
+		});
+
+		$("#tempUplElement").click(function (){
+			var canvas = document.getElementById("canvasElement");
+			var context = canvas.getContext('2d');
+			var file = document.getElementById('tempUplElement').files[0];
+			var reader = new FileReader();
+			reader.onloadend = function ()
+			{
+				console.log(reader.result);
+				var img = new Image();
+				img.src = reader.result;
+				img.onload = function ()
+				{
+					context.drawImage(img, 0 , 0);
+				};
+				canvas.style.visibility = "visible";
+				document.getElementById("popup-temp").value = "1";
+			};
+			if (file){
+				reader.readAsDataURL(file);
+			}
+		});
+
+		$("#save-changes").click(function (){
+			var elem = document.getElementById("popup-temp");
+			if (elem.value == "1")
+			{
+				var canvas = document.getElementById("canvasElement");
+				$.post("php/image_save.php", {popup_temp: "pic_no", img: canvas.toDataURL("image/png")}).done(function (data) {
+					var temp = $("#tempIdElement").val();
+					if (temp == "1")
+	  					$("#prof-pic-1").attr("src", data);
+	  				if (temp == "2")
+	  					$("#prof-pic-2").attr("src", data);
+	  				if (temp == "3")
+	  					$("#prof-pic-3").attr("src", data);
+	  				if (temp == "4")
+	  					$("#prof-pic-4").attr("src", data);
+	  				if (temp == "5")
+	  					$("#prof-pic-5").attr("src", data);
+				});
+		    }
+		    document.getElementById('close-popup').click();
+		});
+	});
+	</script>
 </div>
