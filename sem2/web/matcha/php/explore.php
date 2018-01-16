@@ -12,6 +12,7 @@
 					<span class="caret"></span></button>
 					<ul class="dropdown-menu">
 						<li><a href="#" id="exp-opt-all">All</a></li>
+						<li><a href="#" id="exp-opt-recomend">For you</a></li>
 						<li><a href="#" id="exp-opt-usrname">Username</a></li>
 						<li><a href="#" id="exp-opt-gender">Gender</a></li>
 						<li><a href="#">Age?</a></li>
@@ -20,7 +21,7 @@
 		
 		</div>
 		<div class="row">
-			<h1 id="exp-header">All</h1>
+			<h1 id="exp-header">For you</h1>
 		</div>
 		<div class="row">
 			<div class="container-fluid">
@@ -32,6 +33,13 @@
 	</div>
 	<script type="text/javascript">
 		$( document ).ready(function() {
+
+			var loadRecomend = function (){
+				$("#exp-header").text("For you");
+				$.post("php/user.php", {get_users: "recomend"}).done(function (data){
+					$("#exp-content").html(data);
+				});
+			};
 			var loadAll = function(){
 				$("#exp-header").text("All");
 				$.post("php/user.php", {get_users: "all"}).done(function (data){
@@ -52,6 +60,9 @@
 					$("#exp-content").html(data);
 				});
 			};
+			$("#exp-opt-recomend").click(function (){
+				loadRecomend();
+			});
 			$("#exp-opt-all").click(function (){
 				loadAll();
 			});

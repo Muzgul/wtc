@@ -53,6 +53,7 @@
 						<small>ie #trains #stuff</small>
 					</div>
 				</form>
+
 				<button type="button" class="btn btn-primary hidden" data-toggle="modal" data-target=".bd-example-modal-lg" id="modal-trigger">Large modal</button>
 					<div class="form-group">
 						<div class="container-fluid">

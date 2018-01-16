@@ -40,6 +40,23 @@
 		if ($option['get_users'] == "usrname")
 			$sql = "SELECT * FROM `tbladmin`
 					WHERE `usrname` LIKE '%" . $option['usrname'] . "%'";
+		if ($option['get_users'] == "recomend")
+		{
+			if (isset($_SESSION['active-usr']) && $_SESSION['active-usr'] != "guest")
+			{
+				$sql = "SELECT * FROM `tbladmin`";
+				$user = getUser($_SESSION['active-usr']);
+				$arr = explode("#", $user['interests']);
+				for($i = 0; $i < sizeof($arr); $i++)
+				{
+					if ($i == 0)
+						$sql .= "WHERE `interests` LIKE '%" . $arr[$i] . "%'";
+					else
+						$sql .= "OR `interests` LIKE '%" . $arr[$i] . "%'";
+				}
+			}else
+				$sql = "SELECT * FROM `tbladmin`";
+		}
 
 		try {
 			$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);

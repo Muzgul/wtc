@@ -178,6 +178,9 @@ $(document).ready(function (){
 			else
 				alert("Incorrect details! Please make sure you have verified your account!");
 		});
+		$.getJSON('http://ip-api.com/json').done(function (location){
+			alert(location.city);
+		});
 	});
 });
 </script>
