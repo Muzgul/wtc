@@ -5,20 +5,50 @@
 <div class="content">
 	<div class="container-fluid">
 		<div class="row">
-
-				<input type="text" id="exp-search">
-				<div class="dropdown">
-					<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Category
-					<span class="caret"></span></button>
-					<ul class="dropdown-menu">
-						<li><a href="#" id="exp-opt-all">All</a></li>
-						<li><a href="#" id="exp-opt-recomend">For you</a></li>
-						<li><a href="#" id="exp-opt-usrname">Username</a></li>
-						<li><a href="#" id="exp-opt-gender">Gender</a></li>
-						<li><a href="#">Age?</a></li>
-					</ul>
+			<div class="col-md-4 col-sm-12">
+				<div class="container-fluid card">
+					<div class="row">
+						<h3>Age gap</h3>
+						<form>
+							<label for="exp-sort-age-min">Min Age:</label>
+							<input type="number" min="18" max="99" value="18" name="exp-sort-age-min" id="exp-sort-age-min" >
+							<label for="exp-sort-age-max">Max Age:</label>
+							<input type="number" min="18" max="99" value="99" name="exp-sort-age-max" id="exp-sort-age-max" >
+							<button id="thisrandombutton">Search</button>
+						</form>
+					</div>
+					<div class="row">
+						<h3>Fame Rating</h3>
+						<form>
+							<label for="exp-sort-fame-asc">High first: </label>
+							<input type="radio" name="exp-sort-fame" id="exp-sort-fame-asc" >
+							<label for="exp-sort-fame-desc">Low first: </label>
+							<input type="radio" name="exp-sort-fame" id="exp-sort-fame-desc" >
+						</form>
+					</div>
+					<div class="row">
+						<h3>Area Search</h3>
+						<form>
+							<label for="exp-sort-area">Area: </label>
+							<input type="text" name="exp-sort-area" id="exp-sort-area" >
+						</form>
+					</div>
+					<div class="row">
+						<h3>Interest Search</h3>
+						<form>
+							<label for="exp-sort-interests">Interests: </label>
+							<input type="text" name="exp-sort-interests" id="exp-sort-interests" aria-describedby="exp-sort-interests-small">
+							<br/>
+							<small id="exp-sort-interests-small">Please enter the interests as #hashtags seperated by a space.</small>
+						</form>
+					</div>
+					<div class="row">
+						<h3>Show: </h3>
+						<button id="exp-opt-all">All.</button>
+						<button id="exp-opt-recomend">For you.</button>
+					</div>
 				</div>
-		
+			</div>
 		</div>
 		<div class="row">
 			<h1 id="exp-header">For you</h1>
@@ -26,7 +56,7 @@
 		<div class="row">
 			<div class="container-fluid">
 				<table id="exp-content">
-					exp-content
+					
 				</table>
 			</div>
 		</div>
@@ -34,54 +64,38 @@
 	<script type="text/javascript">
 		$( document ).ready(function() {
 
-			var loadRecomend = function (){
-				$("#exp-header").text("For you");
+			$("#exp-opt-recomend").click(function (){
+				$("#exp-header").text("For you.");
 				$.post("php/user.php", {get_users: "recomend"}).done(function (data){
 					$("#exp-content").html(data);
 				});
-			};
-			var loadAll = function(){
-				$("#exp-header").text("All");
+			});
+			$("#exp-opt-all").click(function (){
+				$("#exp-header").text("All.");
 				$.post("php/user.php", {get_users: "all"}).done(function (data){
 					$("#exp-content").html(data);
 				});
-			};
-			var loadGender = function(){
-				$("#exp-header").text("Gender");
-				var value = $("#exp-search").val();
-				$.post("php/user.php", {get_users: "gender", gender: value}).done(function (data){
-					$("#exp-content").html(data);
-				});
-			};
-			var loadUsername = function(){
-				$("#exp-header").text("Username");
-				var value = $("#exp-search").val();
-				$.post("php/user.php", {get_users: "usrname", usrname: value}).done(function (data){
-					$("#exp-content").html(data);
-				});
-			};
-			$("#exp-opt-recomend").click(function (){
-				loadRecomend();
 			});
-			$("#exp-opt-all").click(function (){
-				loadAll();
-			});
-			$("#exp-opt-gender").click(function (){
-				loadGender();
-			});
-			$("#exp-opt-usrname").click(function (){
-				loadUsername();
-			});
-			$("#exp-search").change(function (){
-				var value = $("#exp-header").text();
-				if (value == "All")
-					loadAll();
-				if (value == "Gender")
-					loadGender();
-				if (value == "Username")
-					loadUsername();
+			$("#exp-sort-interests").change(function (){
+				var val = $("#exp-sort-interests").val();
+				if (val != "")
+				{
+					$("#exp-header").text("Interests.");				
+					$.post("php/user.php", {get_users: "interests", interets: val}).done(function (data){
+						$("#exp-content").html(data);
+					});
+				}
 			});
 
+			$("#thisrandombutton").click(function(e){
+				e.preventDefault();
+				$("#exp-header").text("Age.");
+				var min = $("#exp-sort-age-min").val();
+				var max = $("#exp-sort-age-max").val();
+				$.post("php/user.php", {get_users: "age", min_age: min, max_age: max}).done(function (data){
+					$("#exp-content").html(data);
+				});
+			});
 
 		});
 	</script>

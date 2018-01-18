@@ -25,6 +25,7 @@
 				`firstname` VARCHAR(32),
 				`lastname` VARCHAR(32),
 				`gender` VARCHAR(32),
+				`dob` DATE,
 				`sexpref` VARCHAR(256),
 				`bio` VARCHAR(128),
 				`interests` VARCHAR(128),

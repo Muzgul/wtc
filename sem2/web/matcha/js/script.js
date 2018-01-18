@@ -13,6 +13,8 @@ $( document ).ready(function() {
     			$("#usr-sex-pref").val(arr['sexpref']);
     			$("#usr-bio").val(arr['bio']);
     			$("#usr-email").val(arr['email']);
+    			$("#usr-interests").val(arr['interests']);
+    			$("#usr-dob").val(arr['dob']);
     			$("#prof-pic").attr("src", arr['profpic']);
 	  		});
 	  		$.post("php/user.php", { get_user_imgs: data}).done(function (more_data){

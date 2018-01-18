@@ -39,6 +39,10 @@
 						<small id="gender-info">Please provide your gender in a single word with no capitals/spaces. We will use this for the matching process. Eg. male, female.</small>
 					</div>
 					<div class="form-group">
+						<label for="usr-dob">Date of Birth</label>
+						<input type="date" name="usr-dob" id="usr-dob" class="form-control" placeholder="Date of Birth">
+					</div>
+					<div class="form-group">
 						<label for="usr-sex-pref">Sexual Preference</label>
 						<textarea name="usr-sex-pref" id="usr-sex-pref" class="form-control"></textarea>
 						<small>Please provide your gender preferences in single words with no capitals/spaces separated by a comma. Leave blank for no preference.</small>
@@ -122,6 +126,10 @@
 		$("#usr-bio").change(function (){
 			var val = $("#usr-bio").val();
 			$.post("php/user.php", {change_info: "bio", info: val});
+		});
+		$("#usr-dob").change(function (){
+			var val = $("#usr-dob").val();
+			$.post("php/user.php", {change_info: "dob", info: val});
 		});
 		$("#usr-interests").change(function (){
 			var val = $("#usr-interests").val();
