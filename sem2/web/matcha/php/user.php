@@ -32,6 +32,7 @@
 		$password = "cullygme";
 		$dbname = "matcha";
 
+		//$sql = "SELECT * FROM `tbladmin`";
 		if ($option['get_users'] == "all")
 			$sql = "SELECT * FROM `tbladmin`";
 		if ($option['get_users'] == "gender")
@@ -46,7 +47,7 @@
 			{
 				$sql = "SELECT * FROM `tbladmin`";
 				$user = getUser($_SESSION['active-usr']);
-				$arr = explode("#", $user['interests']);
+				$arr = explode(" ", $user['interests']);
 				for($i = 0; $i < sizeof($arr); $i++)
 				{
 					if ($i == 0)
@@ -56,6 +57,25 @@
 				}
 			}else
 				$sql = "SELECT * FROM `tbladmin`";
+		}
+		if ($option['get_users'] == "age")
+		{
+			$min = date('Y-m-d', strtotime($option['min_age'] . ' years ago'));
+			$max = date('Y-m-d', strtotime($option['max_age'] . ' years ago'));
+			$sql = "SELECT * FROM `tbladmin` WHERE `dob` <= '" . $min . "' AND `dob` > '" . $max . "'";
+			echo $sql;
+		}
+		if ($option['get_users'] == "interests")
+		{
+			$arr = explode(" ", $option['interests']);
+			$sql = "SELECT * FROM `tbladmin`";
+			for($i = 0; $i < sizeof($arr); $i++)
+			{
+				if ($i == 0)
+					$sql .= "WHERE `interests` LIKE '%" . $arr[$i] . "%'";
+				else
+					$sql .= "OR `interests` LIKE '%" . $arr[$i] . "%'";
+			}
 		}
 
 		try {
@@ -73,14 +93,26 @@
 					<td>
 						<div clas="container">
 							<img src="' . $row['profpic'] . '">
-							<h3>' . $row['usrname'] . '</h3>
+							<h3 id="view-user-name">' . $row['usrname'] . '</h3>
 							<small>' . $row['gender'] . ' | ' . $row['sexpref'] . '</small>
+							<a href="php/view_user.php?usrname=' . $row['usrname'] . '" target="_blank" id="view-user-link">See more.</a>
 						</div>
 					</td>
 				';
 				if ($img_count % 9 == 0 && $img_count != 0)
 					$imgs .= "</tr>";
 			}
+			$text .= "
+				<script type='text/javascript'>
+					$( document ).ready(function() {
+
+						$('#view-user-link').click(function (){
+							alert('holy smokes');
+						});
+			
+					});
+				</script>
+			";
 			return ($text);
 		}
 		catch (PDOException $exception)

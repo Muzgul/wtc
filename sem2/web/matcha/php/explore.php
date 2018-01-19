@@ -64,6 +64,10 @@
 	<script type="text/javascript">
 		$( document ).ready(function() {
 
+			$("#view-user-link").click(function (){
+				alert("holy smokes");
+			});
+
 			$("#exp-opt-recomend").click(function (){
 				$("#exp-header").text("For you.");
 				$.post("php/user.php", {get_users: "recomend"}).done(function (data){
@@ -81,7 +85,7 @@
 				if (val != "")
 				{
 					$("#exp-header").text("Interests.");				
-					$.post("php/user.php", {get_users: "interests", interets: val}).done(function (data){
+					$.post("php/user.php", {get_users: "interests", interests: val}).done(function (data){
 						$("#exp-content").html(data);
 					});
 				}
