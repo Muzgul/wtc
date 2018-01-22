@@ -41,13 +41,11 @@
 <body>
 
 	<div class="container-fluid">
-		<a href="#" class="btn btn-lg" id="logout-link">
-          <span class="glyphicon glyphicon-log-out"></span> Log out
-        </a>
         <h1><?php echo $user['usrname']; ?></h1>
         <h2><?php echo $user['firstname'];?> <?php echo $user['lastname'];?></h2>
         <p><?php echo $user['bio'];?></p>
-        <button disabled="<?php if($user['usrname'] == $_SESSION['active_usr']) echo 'true'; else echo 'false'; ?>">Like</button>
+        <button >Like</button>
+        <?php if($user['usrname'] == $_SESSION['active_usr']) echo "<p>disabled</p>"; ?>
 	</div>
 
 	<!-- INCLUDES -->

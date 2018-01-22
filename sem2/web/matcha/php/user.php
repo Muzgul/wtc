@@ -63,7 +63,6 @@
 			$min = date('Y-m-d', strtotime($option['min_age'] . ' years ago'));
 			$max = date('Y-m-d', strtotime($option['max_age'] . ' years ago'));
 			$sql = "SELECT * FROM `tbladmin` WHERE `dob` <= '" . $min . "' AND `dob` > '" . $max . "'";
-			echo $sql;
 		}
 		if ($option['get_users'] == "interests")
 		{
@@ -95,7 +94,7 @@
 							<img src="' . $row['profpic'] . '">
 							<h3 id="view-user-name">' . $row['usrname'] . '</h3>
 							<small>' . $row['gender'] . ' | ' . $row['sexpref'] . '</small>
-							<a href="php/view_user.php?usrname=' . $row['usrname'] . '" target="_blank" id="view-user-link">See more.</a>
+							<a href="php/view_user.php?usrname=' . $row['usrname'] . '" target="_blank" class="view-user-link">See more.</a>
 						</div>
 					</td>
 				';
@@ -106,8 +105,8 @@
 				<script type='text/javascript'>
 					$( document ).ready(function() {
 
-						$('#view-user-link').click(function (){
-							alert('holy smokes');
+						$('.view-user-link').click(function (e){
+							console.log(e);
 						});
 			
 					});

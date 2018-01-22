@@ -134,6 +134,7 @@ $(document).ready(function (){
 				alert("Thank you! Please login to continue.");
 			else
 				alert("Problem registering you!");
+			$("#reg-form").trigger("reset");
 		});
 	});
 	$('#login-form').submit(function (e) {

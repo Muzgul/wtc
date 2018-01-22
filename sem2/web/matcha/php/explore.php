@@ -64,6 +64,10 @@
 	<script type="text/javascript">
 		$( document ).ready(function() {
 
+			$("form").submit(function (e){
+				e.preventDefault();
+			});
+
 			$("#view-user-link").click(function (){
 				alert("holy smokes");
 			});
