@@ -41,16 +41,24 @@
 <body>
 
 	<div class="container-fluid">
-        <h1><?php echo $user['usrname']; ?></h1>
+        <h1 id="usrname"><?php echo $user['usrname']; ?></h1>
         <h2><?php echo $user['firstname'];?> <?php echo $user['lastname'];?></h2>
         <p><?php echo $user['bio'];?></p>
-        <button >Like</button>
-        <?php if($user['usrname'] == $_SESSION['active_usr']) echo "<p>disabled</p>"; ?>
+        <button id="like-user">Like</button>
 	</div>
 
 	<!-- INCLUDES -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-	<script type="text/javascript" src="js/script.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function (){
+			$("#like-user").click(function (){
+				var usrname = $("#usrname").text();
+				$.post("user.php", {like_user: usrname}).done(function (){
+					alert("Liked!");
+				});
+			});
+		});
+	</script>
 </body>
 </html>

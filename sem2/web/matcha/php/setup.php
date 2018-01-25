@@ -32,7 +32,8 @@
 				`email` VARCHAR(32) NOT NULL,
 				`passwd` VARCHAR(256) NOT NULL,
 				`profpic` VARCHAR(256),
-				`verif` INT(2) DEFAULT '0')";
+				`verif` INT(2) DEFAULT '0',
+				`misc` VARCHAR(256))";
 		$conn->exec($sql);
 		echo "[ TABLE ADMIN CREATED ]" . PHP_EOL;
 	}
